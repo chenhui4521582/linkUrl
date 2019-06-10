@@ -82,3 +82,19 @@ window.linkUrl.getBackUrlFlag = function (channel) {
   }
   return str;
 }
+//是否是游客渠道
+window.linkUrl.isVistorChannel = function (channel) {
+  var channels=['100039','100042']//好看视频、全民小视频渠道
+  var id = String(channel);
+  id = id.substring(0, 6);
+  return channels.indexOf(id)!=-1||(localStorage.getItem('visitorLoginVal') && JSON.parse(localStorage.getItem('visitorLoginVal')))
+}
+//游客渠道 资产达到限制跳转地址 (好看、全民除外)
+window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
+  var channels=['100039','100042']//好看视频、全民小视频渠道
+  var id = String(channel);
+  id = id.substring(0, 6);
+  if(channels.indexOf(id)==-1){
+    return 'https://wap.beeplay123.com/publicWap/loginPage.html#/?channel='+channel+'&from='+gametype+'&flag=assetLimitation'
+  }
+}
