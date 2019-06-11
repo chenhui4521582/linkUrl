@@ -31,6 +31,7 @@ window.linkUrl.url['100064'] = '/bdWap/';
 window.linkUrl.url['100065'] = '/bdWap/';
 window.linkUrl.url['100067'] = '/bdWap/';
 window.linkUrl.url['100068'] = '/bdWap/';
+window.linkUrl.url['100069'] = '/bdWap/';
 window.linkUrl.url['100032'] = '/yunqingWap/';
 window.linkUrl.url['700002'] = '/llwWap/';
 window.linkUrl.url['100047'] = '/miniWap/';
