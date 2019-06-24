@@ -53,7 +53,7 @@ window.linkUrl = {
     'miRanking': '/miWap/#/profitlist?from=game',
     'bdRanking': '/bdWap/#/profitlist/0?from=game'
   },
-  getBackUrl = function (channel, gametype, bisbag, isHasChannel, concaturl) {
+  getBackUrl: function (channel, gametype, bisbag, isHasChannel, concaturl) {
     isHasChannel = arguments.length < 4 ? true : isHasChannel
     concaturl = arguments.length < 5 ? '' : concaturl
     var id = String(channel);
