@@ -201,7 +201,7 @@ window.clientBack = clientBack;
     }
     
     try {
-		if(location.href.indexOf('wap.beeplay123.com') != -1 && (localStorage.getItem('APP_CHANNEL') == '100049' || localStorage.getItem('APP_CHANNEL') == '100045')) {
+		if(location.href.indexOf('wap.beeplay123.com') != -1 && (localStorage.getItem('APP_CHANNEL') == '100049' || localStorage.getItem('APP_CHANNEL') == '100045' ||  localStorage.getItem('APP_CHANNEL') == '100042')) {
 			var time = new Date().getTime()
 			  var scriptRenRen = document.createElement('script')
 			  scriptRenRen.type = 'text/javascript'
@@ -213,5 +213,6 @@ window.clientBack = clientBack;
 		console.log('err:',err)
 	}
 
+       
     
 })();
