@@ -53,34 +53,33 @@ window.linkUrl = {
     'miRanking': '/miWap/#/profitlist?from=game',
     'bdRanking': '/bdWap/#/profitlist/0?from=game'
   },
-  getBackUrl: function (channel, gametype, bisbag, isHasChannel, concaturl) {
+  getBackUrl = function (channel, gametype, bisbag, isHasChannel, concaturl) {
     isHasChannel = arguments.length < 4 ? true : isHasChannel
     concaturl = arguments.length < 5 ? '' : concaturl
-    let id = String(channel).substring(0, 6);
+    var id = String(channel);
+    id = id.substring(0, 6);
     var str = '';
     if (isHasChannel) {
       if (this.url[id]) {
         if (gametype == 2) {
-          str = this.url[id] + '?channel=' + channel + '&source=billiards' + (bisbag ? '&skip=bag' :
-              '');
+          str =this.url[id] + '?channel=' + channel + '&source=billiards' + (bisbag ? '&skip=bag' :
+            '');
         } else {
-          str = this.url[id] + '?channel=' + channel + (bisbag ? '&skip=bag' : '');
+          str = this.url['default'] + '?channel=' + channel + (bisbag ? '&skip=bag' : '');
         }
       } else {
-        str = this.url['default'] + '?channel=' + channel + (bisbag ? '&skip=bag' : '');
-      }
-    } else {
-      if (this.url[id]) {
-        if (gametype == 2) {
-          str = this.url[id] + '?source=billiards' + (bisbag ? '&skip=bag' : '');
+        if (this.url[id]) {
+          if (gametype == 2) {
+            str = this.url[id] + '?source=billiards' + (bisbag ? '&skip=bag' : '');
+          } else {
+            str = this.url[id] + (bisbag ? '?skip=bag' : '');
+          }
         } else {
-          str = this.url[id] + (bisbag ? '?skip=bag' : '');
+          str = this.url['default'] + (bisbag ? '?skip=bag' : '');
         }
-      } else {
-        str = this.url['default'] + (bisbag ? '?skip=bag' : '');
       }
+      return str + concaturl;
     }
-    return str + concaturl;
   },
   /** 获取平台标识 H5使用 **/
   getBackUrlFlag: function (channel) {
