@@ -53,7 +53,7 @@ window.linkUrl.getBackUrl = function (channel, gametype, bisbag, isHasChannel, c
     if (window.linkUrl.url[id]) {
       if (gametype == 2) {
         str = window.linkUrl.url[id] + '?channel=' + channel + '&source=billiards' + (bisbag ? '&skip=bag' :
-          '');
+            '');
       } else {
         str = window.linkUrl.url[id] + '?channel=' + channel + (bisbag ? '&skip=bag' : '');
       }
@@ -73,7 +73,7 @@ window.linkUrl.getBackUrl = function (channel, gametype, bisbag, isHasChannel, c
   }
   return str + concaturl;
 }
-//获取平台标识 H5使用
+//鑾峰彇骞冲彴鏍囪瘑 H5浣跨敤
 window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel);
   id = id.substring(0, 6);
@@ -85,16 +85,16 @@ window.linkUrl.getBackUrlFlag = function (channel) {
   }
   return str;
 }
-//是否是游客渠道
+//鏄惁鏄父瀹㈡笭閬�
 window.linkUrl.isVistorChannel = function (channel) {
-  var channels=['100039','100042']//好看视频、全民小视频渠道
+  var channels=['100039','100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel);
   id = id.substring(0, 6);
   return channels.indexOf(id)!=-1||(localStorage.getItem('visitorLoginVal') && JSON.parse(localStorage.getItem('visitorLoginVal')))
 }
-//游客渠道 资产达到限制跳转地址 (好看、全民除外)
+//娓稿娓犻亾 璧勪骇杈惧埌闄愬埗璺宠浆鍦板潃 (濂界湅銆佸叏姘戦櫎澶�)
 window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
-  var channels=['100039','100042']//好看视频、全民小视频渠道
+  var channels=['100039','100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel);
   id = id.substring(0, 6);
   if(channels.indexOf(id)==-1){
