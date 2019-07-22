@@ -41,9 +41,9 @@ const tfGames = []
     'game.yy2hd.com/website',                                           //神奇三国
     'sdk.zhijiangames.com/wanfeng/init/game/xxjqxz',                    //新仙剑
     'sdk.zhijiangames.com/wanfeng/init/game/dhls',                      //大话梁山
-    'sssj.beeplay123.com/sssj',                                         //蜀山世界
+    'sssj.beeplaying.com/sssj',                                         //蜀山世界
     'sdk.zhijiangames.com/wanfeng/init/game/xkx',                       //侠客行
-    'sssj.beeplay123.com/zll',                                          //醉玲珑
+    'sssj.beeplaying.com/zll',                                          //醉玲珑
     'xy-cdn-sgzsh5.suyugame.com/web/xy/index.html',                     //上古诸神
     'apizrzs.h5.91xy.com/hun/login.php',                                //逐日战神
 
@@ -176,7 +176,7 @@ window.clientBack = clientBack;
 	//全平台停服js调用
     if (IS_OPEN) {
         if (timeRange(TIME.start, TIME.finish)) {
-			window.location.href = 'https://wap.beeplay123.com/ErrorPage/ErrorPage.html?tf='+encodeURIComponent(JSON.stringify(TIME))+'&time='+(new Date()).getTime();
+			window.location.href = 'https://wap.beeplaying.com/ErrorPage/ErrorPage.html?tf='+encodeURIComponent(JSON.stringify(TIME))+'&time='+(new Date()).getTime();
         }
     }
     //小游戏停服js调用
@@ -190,10 +190,10 @@ window.clientBack = clientBack;
 					
 					if(item.length <= 10){
 						//小游戏
-						window.location.href = 'https://wap.beeplay123.com/ErrorPage/jcErrorPage.html?tf='+encodeURIComponent(JSON.stringify(GAMETIME))+'&time='+(new Date()).getTime();
+						window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?tf='+encodeURIComponent(JSON.stringify(GAMETIME))+'&time='+(new Date()).getTime();
 					}else {
 						//外界游戏
-						window.location.href = 'https://wap.beeplay123.com/ErrorPage/jcErrorPage.html?from=wj&time='+(new Date()).getTime();
+						window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?from=wj&time='+(new Date()).getTime();
 					}
 				}
 			})
@@ -201,11 +201,12 @@ window.clientBack = clientBack;
     }
     
     try {
-		if(location.href.indexOf('wap.beeplay123.com') != -1 && (localStorage.getItem('APP_CHANNEL') == '100049' || localStorage.getItem('APP_CHANNEL') == '100045' ||  localStorage.getItem('APP_CHANNEL') == '100042')) {
+        var appChannel = localStorage.getItem('APP_CHANNEL');
+		if(location.href.indexOf('wap.beeplaying.com') != -1 && ['100049','100045','100042','100039'].indexOf(appChannel) > -1) {
 			var time = new Date().getTime()
 			  var scriptRenRen = document.createElement('script')
 			  scriptRenRen.type = 'text/javascript'
-			  scriptRenRen.src = 'https://wap.beeplay123.com/rrVideoClose/index.js'
+			  scriptRenRen.src = 'https://wap.beeplaying.com/rrVideoClose/index.js'
 			  document.head.appendChild(scriptRenRen)
 		}
 	}

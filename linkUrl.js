@@ -99,7 +99,7 @@ window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
   var id = String(channel);
   id = id.substring(0, 6);
   if(channels.indexOf(id)==-1){
-    return 'https://wap.beeplay123.com/publicWap/loginPage.html#/?channel='+channel+'&from='+gametype+'&flag=assetLimitation'
+    return 'https://wap.beeplaying.com/publicWap/loginPage.html#/?channel='+channel+'&from='+gametype+'&flag=assetLimitation'
   }
 }
 
