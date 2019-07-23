@@ -40,6 +40,7 @@ window.linkUrl.url['100032'] = '/yunqingWap/';
 window.linkUrl.url['700002'] = '/llwWap/';
 window.linkUrl.url['100047'] = '/miniWap/';
 window.linkUrl.url['100048'] = '/miniWap/';
+window.linkUrl.url['100072'] = '/miniWap/';
 window.linkUrl.url['100002'] = '../../home/';
 window.linkUrl.url['100004'] = '../../home/';
 window.linkUrl.url['100005'] = '../../home/';
