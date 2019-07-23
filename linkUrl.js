@@ -32,6 +32,7 @@ window.linkUrl.url['100064'] = '/bdWap/';
 window.linkUrl.url['100065'] = '/bdWap/';
 window.linkUrl.url['100067'] = '/bdWap/';
 window.linkUrl.url['100068'] = '/bdWap/';
+window.linkUrl.url['100073'] = '/bdWap/';
 window.linkUrl.url['100069'] = '/xmWap/';
 window.linkUrl.url['100013'] = '/bdWap/';
 window.linkUrl.url['100070'] = '/xmWap/';
