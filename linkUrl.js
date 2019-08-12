@@ -174,19 +174,19 @@ function SdkConfig () {
 }
 SdkConfig.prototype = {
   _getUrlParams: function(ename) {
-    let url = window.location.href
-    let Request = {}
+    var url = window.location.href
+    var Request = {}
     if (url.indexOf('?') != -1) {
-      let str = url.split('?')[1]
-      let strs = str.split('&')
-      for (let i = 0; i < strs.length; i++) {
+      var str = url.split('?')[1]
+      var strs = str.split('&')
+      for (var i = 0; i < strs.length; i++) {
         Request[strs[i].split('=')[0]] = strs[i].split('=')[1]
       }
     }
     return ename ? Request[ename] ? Request[ename].split('#')[0] : '' : Request
   },
   getBackUrl: function(channel, gametype, bisbag) {
-    let app_channel = this.APP_CHANNEL || channel
+    var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
     id = id.substring(0, 6);
     var str = '';
