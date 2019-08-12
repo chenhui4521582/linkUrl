@@ -33,6 +33,7 @@ window.linkUrl.url['100065'] = '/bdWap/';
 window.linkUrl.url['100067'] = '/bdWap/';
 window.linkUrl.url['100068'] = '/bdWap/';
 window.linkUrl.url['100073'] = '/bdWap/';
+window.linkUrl.url['100074'] = '/bdWap/';
 window.linkUrl.url['100069'] = '/xmWap/';
 window.linkUrl.url['100013'] = '/bdWap/';
 window.linkUrl.url['100070'] = '/xmWap/';
@@ -56,7 +57,7 @@ window.linkUrl.getBackUrl = function (channel, gametype, bisbag, isHasChannel, c
     if (window.linkUrl.url[id]) {
       if (gametype == 2) {
         str = window.linkUrl.url[id] + '?channel=' + channel + '&source=billiards' + (bisbag ? '&skip=bag' :
-            '');
+          '');
       } else {
         str = window.linkUrl.url[id] + '?channel=' + channel + (bisbag ? '&skip=bag' : '');
       }
@@ -81,8 +82,8 @@ window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel);
   id = id.substring(0, 6);
   var str = '';
-  if (window.linkUrl.url[id]&&window.linkUrl.url[id].startsWith('/')) {
-    str = window.linkUrl.url[id].replace(/\//g,'')
+  if (window.linkUrl.url[id] && window.linkUrl.url[id].startsWith('/')) {
+    str = window.linkUrl.url[id].replace(/\//g, '')
   } else {
     str = 'wap'
   }
@@ -90,23 +91,23 @@ window.linkUrl.getBackUrlFlag = function (channel) {
 }
 //鏄惁鏄父瀹㈡笭閬�
 window.linkUrl.isVistorChannel = function (channel) {
-  var channels=['100039','100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
+  var channels = ['100039', '100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel);
   id = id.substring(0, 6);
-  return channels.indexOf(id)!=-1||(localStorage.getItem('visitorLoginVal') && JSON.parse(localStorage.getItem('visitorLoginVal')))
+  return channels.indexOf(id) != -1 || (localStorage.getItem('visitorLoginVal') && JSON.parse(localStorage.getItem('visitorLoginVal')))
 }
 //娓稿娓犻亾 璧勪骇杈惧埌闄愬埗璺宠浆鍦板潃 (濂界湅銆佸叏姘戦櫎澶�)
 window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
-  var channels=['100039','100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
+  var channels = ['100039', '100042']//濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel);
   id = id.substring(0, 6);
-  if(channels.indexOf(id)==-1){
-    return 'https://wap.beeplaying.com/publicWap/loginPage.html#/?channel='+channel+'&from='+gametype+'&flag=assetLimitation'
+  if (channels.indexOf(id) == -1) {
+    return 'https://wap.beeplaying.com/publicWap/loginPage.html#/?channel=' + channel + '&from=' + gametype + '&flag=assetLimitation'
   }
 }
 
 // 判断是否是游客渠道
-window.linkUrl.getYKChannel = function(channel) {
+window.linkUrl.getYKChannel = function (channel) {
   return channel == '100039' || channel == '100042' || channel == '100047001' || channel == '100048001' || channel == '100070'
 }
 
