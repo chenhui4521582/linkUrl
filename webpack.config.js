@@ -4,7 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports={
     mode: 'production',
     entry:{
-        index:'./linkUrl.js',
+      linkUrl:'./linkUrl.js',
         server:'./server.js'
     },
     output:{
