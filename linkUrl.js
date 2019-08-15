@@ -37,6 +37,7 @@ window.linkUrl.url['100074'] = '/bdWap/';
 window.linkUrl.url['100069'] = '/xmWap/';
 window.linkUrl.url['100013'] = '/bdWap/';
 window.linkUrl.url['100070'] = '/xmWap/';
+window.linkUrl.url['100075'] = '/xmWap/';
 window.linkUrl.url['100032'] = '/yunqingWap/';
 window.linkUrl.url['700002'] = '/llwWap/';
 window.linkUrl.url['100047'] = '/miniWap/';
@@ -150,6 +151,7 @@ function SdkConfig () {
     '100069': '/xmWap/',
     '100013': '/bdWap/',
     '100070': '/xmWap/',
+    '100075': '/xmWap/',
     '100032': '/yunqingWap/',
     '700002': '/llwWap/',
     '100047': '/miniWap/',
