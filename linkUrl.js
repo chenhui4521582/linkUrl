@@ -230,9 +230,9 @@ SdkConfig.prototype = {
     if(isCheckOrderStatus) {
       localStorage.setItem('originDeffer', window.location.href)
       if(['100039', '100042'].indexOf(this.APP_CHANNEL) > -1) {
-        return this.HOST + '/payment/#bdPaymnet?channel=' + this.APP_CHANNEL + '$token=' + this.ACCESS_TOKEN
+        return this.HOST + '/payment/#bdPaymnet?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
       }else {
-        return this.HOST + '/payment/#payment?channel=' + this.APP_CHANNEL + '$token=' + this.ACCESS_TOKEN
+        return this.HOST + '/payment/#payment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
       }
     }
   },
