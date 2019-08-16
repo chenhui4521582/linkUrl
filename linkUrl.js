@@ -1,52 +1,54 @@
-window.linkUrl = {}
-
-window.linkUrl.url = [];
-window.linkUrl.url['100001'] = '/bdWap/';
-window.linkUrl.url['100006'] = '/bdWap/';
-window.linkUrl.url['100022'] = '/bdWap/';
-window.linkUrl.url['100023'] = '/bdWap/';
-window.linkUrl.url['100026'] = '/bdWap/';
-window.linkUrl.url['100028'] = '/bdWap/';
-window.linkUrl.url['100027'] = '/bdWap/';
-window.linkUrl.url['100029'] = '/bdWap/';
-window.linkUrl.url['100035'] = '/bdWap/';
-window.linkUrl.url['100036'] = '/bdWap/';
-window.linkUrl.url['100038'] = '/bdWap/';
-window.linkUrl.url['100039'] = '/bdWap/';
-window.linkUrl.url['100040'] = '/bdWap/';
-window.linkUrl.url['100041'] = '/bdWap/';
-window.linkUrl.url['100042'] = '/bdWap/';
-window.linkUrl.url['100045'] = '/bdWap/';
-window.linkUrl.url['100046'] = '/bdWap/';
-window.linkUrl.url['100049'] = '/bdWap/';
-window.linkUrl.url['100050'] = '/bdWap/';
-window.linkUrl.url['100051'] = '/xmWap/';
-window.linkUrl.url['100052'] = '/bdWap/';
-window.linkUrl.url['100053'] = '/bdWap/';
-window.linkUrl.url['100054'] = '/bdWap/';
-window.linkUrl.url['100055'] = '/bdWap/';
-window.linkUrl.url['100056'] = '/bdWap/';
-window.linkUrl.url['100057'] = '/bdWap/';
-window.linkUrl.url['100058'] = '/bdWap/';
-window.linkUrl.url['100064'] = '/bdWap/';
-window.linkUrl.url['100065'] = '/bdWap/';
-window.linkUrl.url['100067'] = '/bdWap/';
-window.linkUrl.url['100068'] = '/bdWap/';
-window.linkUrl.url['100073'] = '/bdWap/';
-window.linkUrl.url['100074'] = '/bdWap/';
-window.linkUrl.url['100069'] = '/xmWap/';
-window.linkUrl.url['100013'] = '/bdWap/';
-window.linkUrl.url['100070'] = '/xmWap/';
-window.linkUrl.url['100075'] = '/xmWap/';
-window.linkUrl.url['100032'] = '/yunqingWap/';
-window.linkUrl.url['700002'] = '/llwWap/';
-window.linkUrl.url['100047'] = '/miniWap/';
-window.linkUrl.url['100048'] = '/miniWap/';
-window.linkUrl.url['100072'] = '/miniWap/';
-window.linkUrl.url['100002'] = '../../home/';
-window.linkUrl.url['100004'] = '../../home/';
-window.linkUrl.url['100005'] = '../../home/';
-window.linkUrl.url['default'] = '/wap/home/';
+window.linkUrl = {
+  url:{
+    "100001": "/bdWap/",
+    "100002": "../../home/",
+    "100004": "../../home/",
+    "100005": "../../home/",
+    "100006": "/bdWap/",
+    "100013": "/bdWap/",
+    "100022": "/bdWap/",
+    "100023": "/bdWap/",
+    "100026": "/bdWap/",
+    "100027": "/bdWap/",
+    "100028": "/bdWap/",
+    "100029": "/bdWap/",
+    "100032": "/yunqingWap/",
+    "100035": "/bdWap/",
+    "100036": "/bdWap/",
+    "100038": "/bdWap/",
+    "100039": "/bdWap/",
+    "100040": "/bdWap/",
+    "100041": "/bdWap/",
+    "100042": "/bdWap/",
+    "100045": "/bdWap/",
+    "100046": "/bdWap/",
+    "100047": "/miniWap/",
+    "100048": "/miniWap/",
+    "100049": "/bdWap/",
+    "100050": "/bdWap/",
+    "100051": "/xmWap/",
+    "100052": "/bdWap/",
+    "100053": "/bdWap/",
+    "100054": "/bdWap/",
+    "100055": "/bdWap/",
+    "100056": "/bdWap/",
+    "100057": "/bdWap/",
+    "100058": "/bdWap/",
+    "100064": "/bdWap/",
+    "100065": "/bdWap/",
+    "100067": "/bdWap/",
+    "100068": "/bdWap/",
+    "100069": "/xmWap/",
+    "100070": "/xmWap/",
+    "100072": "/miniWap/",
+    "100073": "/bdWap/",
+    "100074": "/bdWap/",
+    "100075": "/xmWap/",
+    "100077": "/bdWap/",
+    "700002": "/llwWap/",
+    "default": "/wap/home/"
+  }
+}
 
 window.linkUrl.getBackUrl = function (channel, gametype, bisbag, isHasChannel, concaturl) {
   isHasChannel = arguments.length < 4 ? true : isHasChannel
@@ -116,51 +118,7 @@ function SdkConfig () {
   this.HOST = '//wap.beeplaying.com'
   this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
   this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
-  this.CHANNEL_CONFIG = {
-    '100001': '/bdWap/',
-    '100006': '/bdWap/',
-    '100022': '/bdWap/',
-    '100023': '/bdWap/',
-    '100026': '/bdWap/',
-    '100028': '/bdWap/',
-    '100027': '/bdWap/',
-    '100029': '/bdWap/',
-    '100035': '/bdWap/',
-    '100036': '/bdWap/',
-    '100038': '/bdWap/',
-    '100039': '/bdWap/',
-    '100040': '/bdWap/',
-    '100041': '/bdWap/',
-    '100042': '/bdWap/',
-    '100045': '/bdWap/',
-    '100046': '/bdWap/',
-    '100049': '/bdWap/',
-    '100050': '/bdWap/',
-    '100051': '/xmWap/',
-    '100052': '/bdWap/',
-    '100053': '/bdWap/',
-    '100054': '/bdWap/',
-    '100055': '/bdWap/',
-    '100056': '/bdWap/',
-    '100057': '/bdWap/',
-    '100058': '/bdWap/',
-    '100064': '/bdWap/',
-    '100065': '/bdWap/',
-    '100067': '/bdWap/',
-    '100068': '/bdWap/',
-    '100069': '/xmWap/',
-    '100013': '/bdWap/',
-    '100070': '/xmWap/',
-    '100075': '/xmWap/',
-    '100032': '/yunqingWap/',
-    '700002': '/llwWap/',
-    '100047': '/miniWap/',
-    '100048': '/miniWap/',
-    '100002': '../../home/',
-    '100004': '../../home/',
-    '100005': '../../home/',
-    'default': '/wap/home/'
-  }
+  this.CHANNEL_CONFIG = window.linkUrl.url;
   this.GAMETYPE = {
     'billiards': 2,
     'crush': 12,
