@@ -120,7 +120,9 @@ function SdkConfig () {
   this.CHANNEL_CONFIG = window.linkUrl.url;
   this.GAMETYPE = {
     'billiards': 2,
+    'ball': 2,
     'crush': 12,
+    'crush2': 12,
     'gofish': 20,
     'kingdom2': 13,
     'landlord': 15,
@@ -160,6 +162,13 @@ SdkConfig.prototype = {
     }
     return str;
   },
+
+  // 获取游戏type
+  getGameType () {
+    var pathname = location.href.pathname && location.href.pathname.replace(/\//g, '')
+    var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
+    return gametype
+  },
   getRankingUrl: function () {
     return this.HOST + '/jsWap/#/popGame?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     // var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
@@ -174,13 +183,17 @@ SdkConfig.prototype = {
   },
   getTaskUrl: function () {
     var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
-    var pathname = location.href.pathname && location.href.pathname.replace(/\//g, '')
-    var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
+    var gametype = this.getGameType()
     if (PLANT_VERSION === 'xmWap') {
       return this.HOST + '/xmWap/#/sdk/task?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     } else {
       return this.HOST + '/activities/taskgames.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     }
+  },
+  // 获取奇遇任务
+  getAdventureUrl: function () {
+    var gametype = this.getGameType()
+    return this.HOST + '/activities/adventure.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
   },
   getPaymentCallbackUrl: function () {
     var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
