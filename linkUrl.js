@@ -1,5 +1,5 @@
 window.linkUrl = {
-  url:{
+  url: {
     "100001": "/bdWap/",
     "100002": "../../home/",
     "100004": "../../home/",
@@ -132,7 +132,7 @@ function SdkConfig () {
   }
 }
 SdkConfig.prototype = {
-  _getUrlParams: function(ename) {
+  _getUrlParams: function (ename) {
     var url = window.location.href
     var Request = {}
     if (url.indexOf('?') != -1) {
@@ -144,7 +144,7 @@ SdkConfig.prototype = {
     }
     return ename ? Request[ename] ? Request[ename].split('#')[0] : '' : Request
   },
-  getBackUrl: function(channel, gametype, bisbag) {
+  getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
     id = id.substring(0, 6);
@@ -160,8 +160,8 @@ SdkConfig.prototype = {
     }
     return str;
   },
-  getRankingUrl: function() {
-    return this.HOST + '/jsWap/#/popGame?channel=' + this.APP_CHANNEL +'&token=' + this.ACCESS_TOKEN
+  getRankingUrl: function () {
+    return this.HOST + '/jsWap/#/popGame?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     // var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
     // if(PLANT_VERSION === 'xmWap') {
     //   return this.HOST + '/xmWap/#/profitlist?from=game'
@@ -169,34 +169,34 @@ SdkConfig.prototype = {
     //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
     // }
   },
-  getPaymentUrl: function() {
-    return this.HOST + '/payment/#/gameMall?channel=' + this.APP_CHANNEL +'&token=' + this.ACCESS_TOKEN
+  getPaymentUrl: function () {
+    return this.HOST + '/payment/#/gameMall?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
   },
-  getTaskUrl: function() {
+  getTaskUrl: function () {
     var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
     var pathname = location.href.pathname && location.href.pathname.replace(/\//g, '')
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
-    if(PLANT_VERSION === 'xmWap') {
-      return this.HOST+ '/xmWap/#/sdk/task?channel=' + this.APP_CHANNEL+ '&gametype=' + gametype+ '&token='+ this.ACCESS_TOKEN
-    }else {
-      return this.HOST+ '/activities/taskgames.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
+    if (PLANT_VERSION === 'xmWap') {
+      return this.HOST + '/xmWap/#/sdk/task?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
+    } else {
+      return this.HOST + '/activities/taskgames.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     }
   },
-  getPaymentCallbackUrl: function() {
+  getPaymentCallbackUrl: function () {
     var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
-    if(isCheckOrderStatus) {
+    if (isCheckOrderStatus) {
       localStorage.setItem('originDeffer', window.location.href)
-      if(['100039', '100042'].indexOf(this.APP_CHANNEL) > -1) {
+      if (['100039', '100042'].indexOf(this.APP_CHANNEL) > -1) {
         return this.HOST + '/payment/#bdPaymnet?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
-      }else {
+      } else {
         return this.HOST + '/payment/#payment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
       }
     }
   },
-  getIsVisitorChannel: function() {
-    if(['100039', '100042', '100047001', '100048001', '100070'].indexOf(this.APP_CHANNEL) > -1) {
+  getIsVisitorChannel: function () {
+    if (['100039', '100042', '100047001', '100048001', '100070'].indexOf(this.APP_CHANNEL) > -1) {
       return true
-    }else {
+    } else {
       return false
     }
   }
