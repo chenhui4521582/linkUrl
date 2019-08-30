@@ -165,7 +165,7 @@ SdkConfig.prototype = {
 
   // 获取游戏type
   getGameType () {
-    var pathname = location.pathname && location.href.pathname.replace(/\//g, '')
+    var pathname = location.pathname && location.pathname.replace(/\//g, '')
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
   },
