@@ -45,6 +45,7 @@ window.linkUrl = {
     "100074": "/bdWap/",
     "100075": "/xmWap/",
     "100076": "/bdWap/",
+    "100080": "/xmWap/",
     "700002": "/llwWap/",
     "default": "/wap/home/"
   }
