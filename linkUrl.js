@@ -17,6 +17,7 @@ window.linkUrl = {
     "100036": "/bdWap/",
     "100038": "/bdWap/",
     "100039": "/bdWap/",
+    "100039001": "/xmWap/",
     "100040": "/bdWap/",
     "100041": "/bdWap/",
     "100042": "/bdWap/",
@@ -51,10 +52,15 @@ window.linkUrl = {
   }
 }
 
-window.linkUrl.getBackUrl = function (channel, gametype, bisbag, isHasChannel, concaturl) {
+window.linkUrl.getBackUrl = function (channel='', gametype, bisbag, isHasChannel, concaturl) {
   isHasChannel = arguments.length < 4 ? true : isHasChannel
   concaturl = arguments.length < 5 ? '' : concaturl
-  var id = String(channel);
+  var id = channel.toString();
+  /** 好看底bar 返回 **/ 
+  if(id == '100039001') {
+    window.location.href = 'baiduhaokan://action/goback'
+    return false
+  }
   id = id.substring(0, 6);
   var str = '';
   if (isHasChannel) {
@@ -151,7 +157,12 @@ SdkConfig.prototype = {
   getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
-    id = id.substring(0, 6);
+    /** 好看底bar 返回 **/ 
+    if(id == '100039001') {
+      window.location.href = 'baiduhaokan://action/goback'
+      return false
+   }
+   id = id.substring(0, 6);
     var str = '';
     if (this.CHANNEL_CONFIG[id]) {
       if (gametype == 2) {
