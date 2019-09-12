@@ -202,7 +202,7 @@ window.clientBack = clientBack;
     
     try {
         var appChannel = localStorage.getItem('APP_CHANNEL');
-		if(location.href.indexOf('wap.beeplaying.com') != -1 && ['100049','100045','100042','100039'].indexOf(appChannel) > -1) {
+		if(location.href.indexOf('wap.beeplaying.com') != -1 && ['100049','100045','100042'].indexOf(appChannel) > -1) {
 			var time = new Date().getTime()
 			  var scriptRenRen = document.createElement('script')
 			  scriptRenRen.type = 'text/javascript'
