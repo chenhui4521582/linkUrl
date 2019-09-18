@@ -154,6 +154,7 @@ SdkConfig.prototype = {
     }
     return ename ? Request[ename] ? Request[ename].split('#')[0] : '' : Request
   },
+  /** 获取游戏返回地址 **/
   getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
@@ -175,13 +176,13 @@ SdkConfig.prototype = {
     }
     return str;
   },
-
-  // 获取游戏type
+  /** 获取游戏type **/
   getGameType () {
     var pathname = location.pathname && location.pathname.replace(/\//g, '')
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
   },
+  /** 获取排行榜地址 **/
   getRankingUrl: function () {
     return this.HOST + '/jsWap/#/popGame?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     // var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
@@ -191,9 +192,11 @@ SdkConfig.prototype = {
     //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
     // }
   },
+  /** 获取支付地址 **/
   getPaymentUrl: function () {
     return this.HOST + '/payment/#/gameMall?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
   },
+  /** 获取SDK地址 **/
   getTaskUrl: function () {
     var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
     var gametype = this.getGameType()
@@ -203,11 +206,12 @@ SdkConfig.prototype = {
       return this.HOST + '/activities/taskgames.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     }
   },
-  // 获取奇遇任务
+  /** 获取奇遇任务 **/
   getAdventureUrl: function () {
     var gametype = this.getGameType()
     return this.HOST + '/activities/adventure.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
   },
+  /** 获取支付回调地址 **/
   getPaymentCallbackUrl: function () {
     var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
     if (isCheckOrderStatus) {
@@ -219,6 +223,7 @@ SdkConfig.prototype = {
       }
     }
   },
+  /** 获取游客渠道 **/
   getIsVisitorChannel: function () {
     if (['100039', '100042', '100047001', '100048001', '100070'].indexOf(this.APP_CHANNEL) > -1) {
       return true
@@ -229,3 +234,36 @@ SdkConfig.prototype = {
 }
 
 window.SDK = new SdkConfig
+
+/** 百度底Bar webView关闭 刷新首页方法 **/
+var BottomBar = {
+  createIframe: function() {
+    var bdminObj = "webViewClose";
+    var scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj);
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = scheme;
+    document.body.appendChild(iframe);
+    setTimeout(function () {
+        iframe.remove();
+    }, 1000);
+  },
+  closeWebView: function() {
+    window.webViewClose = function () {
+      localStorage.setItem('bottomBarCloseWebView', 'close')
+      location.href = 'baiduhaokan://action/goback';
+    }
+  },
+  init: function() {
+    var channel = SDK._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL')
+    if(channel == 100039001) {
+      this.createIframe()
+      this.closeWebView()
+    }
+  }
+}
+
+BottomBar.init()
+
+
+
