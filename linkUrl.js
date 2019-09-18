@@ -52,12 +52,12 @@ window.linkUrl = {
   }
 }
 
-window.linkUrl.getBackUrl = function (channel='', gametype, bisbag, isHasChannel, concaturl) {
+window.linkUrl.getBackUrl = function (channel = '', gametype, bisbag, isHasChannel, concaturl) {
   isHasChannel = arguments.length < 4 ? true : isHasChannel
   concaturl = arguments.length < 5 ? '' : concaturl
   var id = channel.toString();
-  /** 好看底bar 返回 **/ 
-  if(id == '100039001') {
+  /** 好看底bar 返回 **/
+  if (id == '100039001') {
     window.location.href = 'baiduhaokan://action/goback'
     return false
   }
@@ -158,12 +158,12 @@ SdkConfig.prototype = {
   getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
-    /** 好看底bar 返回 **/ 
-    if(id == '100039001') {
+    /** 好看底bar 返回 **/
+    if (id == '100039001') {
       window.location.href = 'baiduhaokan://action/goback'
       return false
-   }
-   id = id.substring(0, 6);
+    }
+    id = id.substring(0, 6);
     var str = '';
     if (this.CHANNEL_CONFIG[id]) {
       if (gametype == 2) {
@@ -178,7 +178,7 @@ SdkConfig.prototype = {
   },
   /** 获取游戏type **/
   getGameType () {
-    var pathname = location.pathname && location.pathname.replace(/\//g, '')
+    var pathname = location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
   },
@@ -237,7 +237,7 @@ window.SDK = new SdkConfig
 
 /** 百度底Bar webView关闭 刷新首页方法 **/
 var BottomBar = {
-  createIframe: function() {
+  createIframe: function () {
     var bdminObj = "webViewClose";
     var scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj);
     var iframe = document.createElement('iframe');
@@ -245,18 +245,18 @@ var BottomBar = {
     iframe.src = scheme;
     document.body.appendChild(iframe);
     setTimeout(function () {
-        iframe.remove();
+      iframe.remove();
     }, 1000);
   },
-  closeWebView: function() {
+  closeWebView: function () {
     window.webViewClose = function () {
       localStorage.setItem('bottomBarCloseWebView', 'close')
       location.href = 'baiduhaokan://action/goback';
     }
   },
-  init: function() {
+  init: function () {
     var channel = SDK._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL')
-    if(channel == 100039001) {
+    if (channel == 100039001) {
       this.createIframe()
       this.closeWebView()
     }
