@@ -156,18 +156,13 @@ SdkConfig.prototype = {
     }
     return ename ? Request[ename] ? Request[ename].split('#')[0] : '' : Request
   },
-  backUrl(channel, gametype, bisbag){
-    if(channel=='100039001'){
-      localStorage['bottomBarCloseWebView'] = 'close';
-    }
-    location.href = this.getBackUrl(channel, gametype, bisbag);
-  },
   /** 获取游戏返回地址 **/
   getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel);
     /** 好看底bar 返回 **/
     if (id == '100039001') {
+      localStorage['bottomBarCloseWebView'] = 'close';
       window.location.href = 'baiduhaokan://action/goback'
       return false
     }
