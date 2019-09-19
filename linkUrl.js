@@ -200,7 +200,19 @@ SdkConfig.prototype = {
   getTaskUrl: function () {
     var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
     var gametype = this.getGameType()
-    if (PLANT_VERSION === 'xmWap') {
+
+    //横屏游戏先使用深色的
+    var useDark = false;
+    var games=['/fish/','/landlord/']
+    if(parent.location.href){
+      for(var game of games){
+        if(parent.location.href.indexOf(game)>-1){
+          useDark = true;
+        }
+      }
+    }
+
+    if (PLANT_VERSION === 'xmWap' && !useDark) {
       return this.HOST + '/xmWap/#/sdk/task?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     } else {
       return this.HOST + '/activities/taskgames.html?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
