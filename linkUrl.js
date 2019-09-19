@@ -129,15 +129,17 @@ function SdkConfig () {
   this.GAMETYPE = {
     'billiards': 2,
     'ball': 2,
+    'ring': 3,
+    'ring2': 3,
+    'legion': 4,
+    'fish': 10,
     'crush': 12,
     'crush2': 12,
-    'gofish': 20,
     'kingdom2': 13,
     'landlord': 15,
-    'legion': 4,
     'square': 18,
+    'gofish': 20,
     'marbles': 21,
-    'fish': 10,
     'default': 0
   }
 }
