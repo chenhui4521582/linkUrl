@@ -206,15 +206,19 @@ SdkConfig.prototype = {
 
     //横屏游戏先使用深色的
     var useDark = false;
-    var games=['/fish/','/landlord/']
-    if(parent.location.href){
-      for(var game of games){
-        if(parent.location.href.indexOf(game)>-1){
-          useDark = true;
+    try{
+      var games=['/fish/','/landlord/']
+      if(parent.location.href){
+        for(var game of games){
+          if(parent.location.href.indexOf(game)>-1){
+            useDark = true;
+          }
         }
       }
+    }catch(e){
+      useDark = false;
     }
-
+    
     if (PLANT_VERSION === 'xmWap' && !useDark) {
       return this.HOST + '/xmWap/#/sdk/task?channel=' + this.APP_CHANNEL + '&gametype=' + gametype + '&token=' + this.ACCESS_TOKEN
     } else {
