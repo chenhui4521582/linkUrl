@@ -118,7 +118,7 @@ window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
 
 // 判断是否是游客渠道
 window.linkUrl.getYKChannel = function (channel) {
-  return channel == '100039' || channel == '100042' || channel == '100047001' || channel == '100048001' || channel == '100070'
+  return channel == '100039' || channel == '100042' || channel == '100047001' || channel == '100048001' || channel == '100070' ||  channel == '100068'
 }
 
 function SdkConfig () {
