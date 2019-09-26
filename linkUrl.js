@@ -254,35 +254,6 @@ SdkConfig.prototype = {
 
 window.SDK = new SdkConfig
 
-/** 百度底Bar webView关闭 刷新首页方法 **/
-var BottomBar = {
-  createIframe: function () {
-    var bdminObj = "webViewClose";
-    var scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj);
-    var iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = scheme;
-    document.body.appendChild(iframe);
-    setTimeout(function () {
-      iframe.remove();
-    }, 1000);
-  },
-  closeWebView: function () {
-    window.webViewClose = function () {
-      localStorage.setItem('bottomBarCloseWebView', 'close')
-      location.href = 'baiduhaokan://action/goback';
-    }
-  },
-  init: function () {
-    var channel = SDK._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL')
-    if (channel == 100039001) {
-      this.createIframe()
-      this.closeWebView()
-    }
-  }
-}
-
-BottomBar.init()
 
 
 
