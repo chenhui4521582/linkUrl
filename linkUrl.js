@@ -213,6 +213,9 @@ SdkConfig.prototype = {
           }
         }
       }
+      if(this.APP_CHANNEL == 100039) {
+        useDark = true;
+      }
     }catch(e){
       useDark = false;
     }
