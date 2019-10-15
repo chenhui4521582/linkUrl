@@ -1,6 +1,9 @@
 
 // 老猫停服判断 可以删除 开始
 function catIsClose (date) {
+  if (date) {
+    date = date.replace(/\-/g, "/")
+  }
   return new Date(date || '2019/10/15 20:00').getTime() - new Date().getTime() < 0
 }
 // 老猫停服判断 可以删除 结束
