@@ -1,4 +1,11 @@
 
+// 老猫停服判断 可以删除 开始
+function catIsClose (date) {
+  return new Date(date || '2019-10-15 20:00').getTime() - Date.now() < 0
+}
+// 老猫停服判断 可以删除 结束
+
+
 
 //********************全平台停服配置开始**********************
 //开关
@@ -7,10 +14,10 @@ const IS_OPEN = false;
 // const DATE = '2017-7-3';
 //时间
 const TIME = {
-	startDate: '2019年1月8日',
-    start: '4:00',
-    finishDate: '2019年1月9日',
-    finish: '22:00'
+  startDate: '2019年1月8日',
+  start: '4:00',
+  finishDate: '2019年1月9日',
+  finish: '22:00'
 };
 //********************全平台停服配置结束**********************
 
@@ -22,10 +29,10 @@ const TIME = {
 const IS_GAME_OPEN = false;
 //日期
 const GAMETIME = {
-	startDate: '2019年1月8日',
-    start: '4:00',
-    finishDate: '2019年1月9日',
-    finish: '22:00'
+  startDate: '2019年1月8日',
+  start: '4:00',
+  finishDate: '2019年1月9日',
+  finish: '22:00'
 };
 //需要停服的游戏  (例如  ) ==>  ['billiards','dart','sdk.zhijiangames.com/wanfeng/init/game/xxjqxz']
 const tfGames = []
@@ -74,146 +81,143 @@ const tfGames = []
 
 //提示
 const NOTICE = {
-    title: '停服公告',
-    content: '各位玩家:<br/>为提升游戏体验，暂进行停服维护。停服期间将无法进行游戏，给各位带来的不便，敬请谅解。'
+  title: '停服公告',
+  content: '各位玩家:<br/>为提升游戏体验，暂进行停服维护。停服期间将无法进行游戏，给各位带来的不便，敬请谅解。'
 }
 
 //频闭微信分享
-function onBridgeReady() {
-    WeixinJSBridge.call('hideOptionMenu');
+function onBridgeReady () {
+  WeixinJSBridge.call('hideOptionMenu');
 }
-function getRequest() {
-    var url = location.search;
-    var theRequest = new Object();
-    if (url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        var strs = str.split("&");
-        for (var i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-        }
+function getRequest () {
+  var url = location.search;
+  var theRequest = new Object();
+  if (url.indexOf("?") != -1) {
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for (var i = 0; i < strs.length; i++) {
+      theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
     }
-    return theRequest;
+  }
+  return theRequest;
 }
 
-function closeWeiXinShare() {
-    var WxScript = document.createElement("script");
-    WxScript.type = "text/javascript";
-    WxScript.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
-    document.head.appendChild(WxScript);
-    if (typeof WeixinJSBridge == "undefined") {
-        if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-        } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-        }
-    } else {
-        onBridgeReady();
+function closeWeiXinShare () {
+  var WxScript = document.createElement("script");
+  WxScript.type = "text/javascript";
+  WxScript.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
+  document.head.appendChild(WxScript);
+  if (typeof WeixinJSBridge == "undefined") {
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
     }
+  } else {
+    onBridgeReady();
+  }
 }
 
 
 var curChannel = '';
 if (getRequest()['channel']) {
-    curChannel = String(getRequest()['channel']);
+  curChannel = String(getRequest()['channel']);
 } else {
-    curChannel = localStorage.getItem('APP_CHANNEL');
+  curChannel = localStorage.getItem('APP_CHANNEL');
 }
-var GameArr = ['landlord', 'dart', 'fish', 'kingdom', 'legion', 'moto', 'ring', 'samguk', 'crush', 'tcard', 'taurus' ,'cat']
+var GameArr = ['landlord', 'dart', 'fish', 'kingdom', 'legion', 'moto', 'ring', 'samguk', 'crush', 'tcard', 'taurus', 'cat']
 
 if (curChannel.indexOf('100029') != -1) {
-    closeWeiXinShare();
+  closeWeiXinShare();
 }
 
 for (let i = 0; i < GameArr.length; i++) {
-    if (window.location.href.indexOf(GameArr[i]) != -1 && (curChannel.indexOf('110002') != -1 || curChannel.indexOf('110004') != -1 || curChannel.indexOf('110003') != -1)) {
-        closeWeiXinShare();
-        break;
-    }
+  if (window.location.href.indexOf(GameArr[i]) != -1 && (curChannel.indexOf('110002') != -1 || curChannel.indexOf('110004') != -1 || curChannel.indexOf('110003') != -1)) {
+    closeWeiXinShare();
+    break;
+  }
 }
 
 localStorage.removeItem('originDeffer');
 
-function timeRange(beginTime, endTime) {
-    var strb = beginTime.split(":");
-    if (strb.length != 2) {
-        return false;
-    }
+function timeRange (beginTime, endTime) {
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
 
-    var stre = endTime.split(":");
-    if (stre.length != 2) {
-        return false;
-    }
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
 
-    var b = new Date();
-    var e = new Date();
-    var n = new Date();
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
 
-    b.setHours(strb[0]);
-    b.setMinutes(strb[1]);
-    e.setHours(stre[0]);
-    e.setMinutes(stre[1]);
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
 
-    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
-        return true;
-    } else {
-        return false;
-    }
+  if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 var _ss = window.location.href.split('#/');
-function clientBack() {
-    var locationUrlArr = window.location.href.split('#/');
-    if (locationUrlArr.length > 1) {
-        locationUrlArr.splice(1, 0, "&mainClient=true#/")
-    }
-    window.location.href = locationUrlArr.join('');
+function clientBack () {
+  var locationUrlArr = window.location.href.split('#/');
+  if (locationUrlArr.length > 1) {
+    locationUrlArr.splice(1, 0, "&mainClient=true#/")
+  }
+  window.location.href = locationUrlArr.join('');
 }
 window.clientBack = clientBack;
 
 (function () {
-	
-	//全平台停服js调用
-    if (IS_OPEN) {
-        if (timeRange(TIME.start, TIME.finish)) {
-			window.location.href = 'https://wap.beeplaying.com/ErrorPage/ErrorPage.html?tf='+encodeURIComponent(JSON.stringify(TIME))+'&time='+(new Date()).getTime();
-        }
-    }
-    //小游戏停服js调用
-    
-    if(IS_GAME_OPEN) {
-    	var tf_server_wUrl = window.location.href && window.location.href.split('?')[0]
-    	if (timeRange(GAMETIME.start, GAMETIME.finish)) {
-    		tfGames.length&&tfGames.forEach(function(item) {
-    			console.log('item::', item)
-				if(tf_server_wUrl.indexOf(item) != -1) {
-					
-					if(item.length <= 10){
-						//小游戏
-						window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?tf='+encodeURIComponent(JSON.stringify(GAMETIME))+'&time='+(new Date()).getTime();
-					}else {
-						//外界游戏
-						window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?from=wj&time='+(new Date()).getTime();
-					}
-				}
-			})
-        }
-    }
-    
-    try {
-        var appChannel = localStorage.getItem('APP_CHANNEL');
-		if(location.href.indexOf('wap.beeplaying.com') != -1 && ['100049','100045','100042'].indexOf(appChannel) > -1) {
-			var time = new Date().getTime()
-			  var scriptRenRen = document.createElement('script')
-			  scriptRenRen.type = 'text/javascript'
-			  scriptRenRen.src = 'https://wap.beeplaying.com/rrVideoClose/index.js'
-			  document.head.appendChild(scriptRenRen)
-		}
-	}
-	catch(err) {
-		console.log('err:',err)
-	}
 
-       
-    
+  //全平台停服js调用
+  if (IS_OPEN) {
+    if (timeRange(TIME.start, TIME.finish)) {
+      window.location.href = 'https://wap.beeplaying.com/ErrorPage/ErrorPage.html?tf=' + encodeURIComponent(JSON.stringify(TIME)) + '&time=' + (new Date()).getTime();
+    }
+  }
+  //小游戏停服js调用
+
+  if (IS_GAME_OPEN) {
+    var tf_server_wUrl = window.location.href && window.location.href.split('?')[0]
+    if (timeRange(GAMETIME.start, GAMETIME.finish)) {
+      tfGames.length && tfGames.forEach(function (item) {
+        console.log('item::', item)
+        if (tf_server_wUrl.indexOf(item) != -1) {
+
+          if (item.length <= 10) {
+            //小游戏
+            window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?tf=' + encodeURIComponent(JSON.stringify(GAMETIME)) + '&time=' + (new Date()).getTime();
+          } else {
+            //外界游戏
+            window.location.href = 'https://wap.beeplaying.com/ErrorPage/jcErrorPage.html?from=wj&time=' + (new Date()).getTime();
+          }
+        }
+      })
+    }
+  }
+
+  try {
+    var appChannel = localStorage.getItem('APP_CHANNEL');
+    if (location.href.indexOf('wap.beeplaying.com') != -1 && ['100049', '100045', '100042'].indexOf(appChannel) > -1) {
+      var time = new Date().getTime()
+      var scriptRenRen = document.createElement('script')
+      scriptRenRen.type = 'text/javascript'
+      scriptRenRen.src = 'https://wap.beeplaying.com/rrVideoClose/index.js'
+      document.head.appendChild(scriptRenRen)
+    }
+  }
+  catch (err) {
+    console.log('err:', err)
+  }
 })();
