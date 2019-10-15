@@ -118,7 +118,7 @@ window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
 
 // 老猫停服判断 可以删除 开始
 window.catIsClose = function (date) {
-  return new Date(date || '2019-10-15 20:00').getTime() - Date.now() < 0
+  return new Date(date || '2019/10/15 20:00').getTime() - new Date().getTime() < 0
 }
 // 老猫停服判断 可以删除 结束
 
