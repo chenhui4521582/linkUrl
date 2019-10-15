@@ -116,6 +116,12 @@ window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
   }
 }
 
+// 老猫停服判断 可以删除 开始
+window.catIsClose = function (date) {
+  return new Date(date || '2019-10-15 20:00').getTime() - Date.now() < 0
+}
+// 老猫停服判断 可以删除 结束
+
 // 判断是否是游客渠道
 window.linkUrl.getYKChannel = function (channel) {
   return channel == '100039' || channel == '100042' || channel == '100047001' || channel == '100048001' || channel == '100070' || channel == '100068'
@@ -252,11 +258,6 @@ SdkConfig.prototype = {
     }
   }
 }
-// 老猫停服判断 可以删除 开始
-function catIsClose (date) {
-  return new Date(date || '2019-10-15 20:00').getTime() - Date.now() < 0
-}
-// 老猫停服判断 可以删除 结束
 window.SDK = new SdkConfig
 
 
