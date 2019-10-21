@@ -256,6 +256,19 @@ SdkConfig.prototype = {
     } else {
       return false
     }
+  },
+  /** 打开充值窗口 **/
+  charge: function(order) {
+    if(!order) {return false}
+    if(linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
+      let url = `${this.HOST}/payment/#/payment`
+      localStorage.setItem('JDD_PARAM', JSON.stringify(order))
+      parent && parent.GameEval('openweb', url)
+    }else {
+      let url = `${this.HOST}/payment/#/bdPayment`
+      localStorage.setItem('JDD_PARAM', JSON.stringify(order))
+      parent && parent.GameEval('openweb', url)
+    }
   }
 }
 window.SDK = new SdkConfig
