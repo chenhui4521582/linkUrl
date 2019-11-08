@@ -146,6 +146,8 @@ function SdkConfig () {
     'square': 18,
     'gofish': 20,
     'marbles': 21,
+    'mahjong': 22,
+    'zodiac': 23,
     'default': 0
   }
 }
@@ -258,13 +260,13 @@ SdkConfig.prototype = {
     }
   },
   /** 打开充值窗口 **/
-  charge: function(order) {
-    if(!order) {return false}
-    if(linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
+  charge: function (order) {
+    if (!order) { return false }
+    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
       let url = `${this.HOST}/payment/#/payment`
       localStorage.setItem('JDD_PARAM', JSON.stringify(order))
       parent && parent.GameEval('openweb', url)
-    }else {
+    } else {
       let url = `${this.HOST}/payment/#/bdPayment`
       localStorage.setItem('JDD_PARAM', JSON.stringify(order))
       parent && parent.GameEval('openweb', url)
