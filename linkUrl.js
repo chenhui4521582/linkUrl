@@ -206,7 +206,28 @@ SdkConfig.prototype = {
   },
   /** 获取支付地址 **/
   getPaymentUrl: function () {
-    return this.HOST + '/payment/#/gameMall?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+    var useDark = false;
+    try{
+      var games=['/fish/', '/landlord/', '/mahjong/', '/paodekuai/']
+      if(parent.location.href){
+        for(var game of games){
+          if(parent.location.href.indexOf(game)>-1){
+            useDark = true;
+          }
+        }
+      }
+    }catch(e){
+      useDark = false;
+    }
+    if (useDark) {
+      /* Landscape  横屏模式 商城*/
+      return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+    } else {
+      /*  Portrait  竖屏模式 商城*/
+      return this.HOST+'/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+    }
+    
+    
   },
   /** 获取SDK地址 **/
   getTaskUrl: function () {
