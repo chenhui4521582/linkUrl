@@ -207,20 +207,31 @@ SdkConfig.prototype = {
   },
   /** 获取支付地址 **/
   getPaymentUrl: function () {
-    var useDark = false;
+    var useLandscape = false;
     try{
-      var games=['/fish/', '/landlord/', '/mahjong/', '/paodekuai/']
+
+      let screenOrientation  = parent.document.querySelector('meta[name=screen-orientation]');
+      let x5Orientation  = parent.document.querySelector('meta[name=x5-orientation]');
+
+      if(screenOrientation && screenOrientation.getAttribute("content") == 'landscape'){
+        useLandscape = true;
+      }
+      else if(x5Orientation && x5Orientation.getAttribute("content") == 'landscape'){
+        useLandscape = true;
+      }
+
+      var games=['/landlord/', '/mahjong/', '/paodekuai/']
       if(parent.location.href){
         for(var game of games){
           if(parent.location.href.indexOf(game)>-1){
-            useDark = true;
+            useLandscape = true;
           }
         }
       }
     }catch(e){
-      useDark = false;
+      useLandscape = false;
     }
-    if (useDark) {
+    if (useLandscape) {
       /* Landscape  横屏模式 商城*/
       return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     } else {
