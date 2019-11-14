@@ -1,3 +1,10 @@
+if(localStorage.getItem('APP_CHANNEL')==100081){
+  var time2 = new Date().getTime()
+  var script2 = document.createElement('script')
+  script2.type = 'text/javascript'
+  script2.src = 'https://a.lianwifi.com/miniapp/wifikey-bridge/1.0.1/index.js?time=' + time2
+  document.head.appendChild(script2)
+}
 window.linkUrl = {
   url: {
     "100001": "/bdWap/",
@@ -222,13 +229,13 @@ SdkConfig.prototype = {
     }
     if (useDark) {
       /* Landscape  横屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN+ '&time=' + new Date().getTime()
     } else {
       /*  Portrait  竖屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST+'/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN+ '&time=' + new Date().getTime()
     }
-    
-    
+
+
   },
   /** 获取SDK地址 **/
   getTaskUrl: function () {
@@ -294,6 +301,24 @@ SdkConfig.prototype = {
       localStorage.setItem('JDD_PARAM', JSON.stringify(order))
       parent && parent.GameEval('openweb', url)
     }
+  },
+  //充值100081
+  charge100081:function (order) {
+    wifikey.pay({
+      orderInfo: {
+        tpOrderId: order
+      },
+      success: res => {
+        if(document.getElementsByTagName('iframe')[0]){
+          document.getElementsByTagName('iframe')[0].contentWindow.chargeState(true,res)
+        }
+      },
+      fail: msg => {
+        if(document.getElementsByTagName('iframe')[0]){
+          document.getElementsByTagName('iframe')[0].contentWindow.chargeState(false,msg)
+        }
+      }
+    });
   }
 }
 window.SDK = new SdkConfig
