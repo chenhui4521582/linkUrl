@@ -233,10 +233,10 @@ SdkConfig.prototype = {
     }
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST + '/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
     } else {
       /*  Portrait  竖屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST + '/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
     }
     
     
