@@ -205,41 +205,45 @@ SdkConfig.prototype = {
     //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
     // }
   },
-  /** 获取支付地址 **/
-  getPaymentUrl: function () {
-    var useLandscape = false;
-    try{
+  getUseLandscape: function () {
+    let useLandscape = false;
+    try {
 
-      let screenOrientation  = parent.document.querySelector('meta[name=screen-orientation]');
-      let x5Orientation  = parent.document.querySelector('meta[name=x5-orientation]');
+      let screenOrientation = parent.document.querySelector('meta[name=screen-orientation]');
+      let x5Orientation = parent.document.querySelector('meta[name=x5-orientation]');
 
-      if(screenOrientation && screenOrientation.getAttribute("content") == 'landscape'){
+      if (screenOrientation && screenOrientation.getAttribute("content") == 'landscape') {
         useLandscape = true;
       }
-      else if(x5Orientation && x5Orientation.getAttribute("content") == 'landscape'){
+      else if (x5Orientation && x5Orientation.getAttribute("content") == 'landscape') {
         useLandscape = true;
       }
 
-      var games=['/landlord/', '/mahjong/', '/paodekuai/']
-      if(parent.location.href){
-        for(var game of games){
-          if(parent.location.href.indexOf(game)>-1){
+      let games = ['/landlord/', '/mahjong/', '/paodekuai/']
+      if (parent.location.href) {
+        for (let game of games) {
+          if (parent.location.href.indexOf(game) > -1) {
             useLandscape = true;
           }
         }
       }
-    }catch(e){
+    } catch (e) {
       useLandscape = false;
     }
+    return useLandscape
+  },
+  /** 获取支付地址 **/
+  getPaymentUrl: function () {
+    let useLandscape = this.getUseLandscape()
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST + '/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     } else {
       /*  Portrait  竖屏模式 商城*/
-      return this.HOST+'/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST + '/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     }
-    
-    
+
+
   },
   /** 获取SDK地址 **/
   getTaskUrl: function () {
@@ -278,11 +282,7 @@ SdkConfig.prototype = {
     var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
     if (isCheckOrderStatus) {
       localStorage.setItem('originDeffer', window.location.href)
-      if (['100039', '100042'].indexOf(this.APP_CHANNEL) > -1) {
-        return this.HOST + '/payment/#bdPayment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
-      } else {
-        return this.HOST + '/payment/#payment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
-      }
+      return this.HOST + '/xmWap/#/gamepayment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     }
   },
   /** 获取游客渠道 **/
