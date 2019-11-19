@@ -305,6 +305,22 @@ SdkConfig.prototype = {
       localStorage.setItem('JDD_PARAM', JSON.stringify(order))
       parent && parent.GameEval('openweb', url)
     }
+  },
+  /** 获取平台盈利榜地址 **/
+  getPlantRankingUrl: function () {
+    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
+      return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=index`
+    } else {
+      return `${this.HOST}/bdWap/#/profitlist/0?channel=${this.APP_CHANNEL}&from=index`
+    }
+  },
+  /** 获取平台客服地址 **/
+  getPlantServices: function () {
+    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
+      return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
+    } else {
+      return `${this.HOST}/bdWap/#/problem?tab=contact_personal&channel=${this.APP_CHANNEL}`
+    }
   }
 }
 window.SDK = new SdkConfig
