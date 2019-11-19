@@ -282,7 +282,7 @@ SdkConfig.prototype = {
     var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
     if (isCheckOrderStatus) {
       localStorage.setItem('originDeffer', window.location.href)
-      return this.HOST + '/xmWap/#/gamepayment?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      return this.HOST + '/xmWap/#/gamepayment/callback?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     }
   },
   /** 获取游客渠道 **/
