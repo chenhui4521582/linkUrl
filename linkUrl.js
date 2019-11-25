@@ -244,13 +244,11 @@ SdkConfig.prototype = {
     let useLandscape = this.getUseLandscape()
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
-      return this.HOST + '/payment/#/gameMall/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
+      return this.HOST + '/xmWap/#/gamepayment/landScape?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
     } else {
       /*  Portrait  竖屏模式 商城*/
-      return this.HOST + '/payment/#/gameMall/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
+      return this.HOST + '/xmWap/#/gamepayment/portrait?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN + '&time=' + new Date().getTime()
     }
-
-
   },
   /** 获取SDK地址 **/
   getTaskUrl: function () {
