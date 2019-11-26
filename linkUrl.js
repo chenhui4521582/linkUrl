@@ -160,6 +160,7 @@ function SdkConfig () {
     'default': 0
   }
 }
+
 SdkConfig.prototype = {
   _getUrlParams: function (ename) {
     var url = window.location.href
@@ -284,9 +285,12 @@ SdkConfig.prototype = {
   },
   /** 获取支付回调地址 **/
   getPaymentCallbackUrl: function () {
-    var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
+    // var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
+    var isCheckOrderStatus = localStorage.getItem('checkOrderStatus') == 'true' // 游戏修改后还原
+    localStorage.setItem('originDeffer', window.location.href)
     if (isCheckOrderStatus) {
-      localStorage.setItem('originDeffer', window.location.href)
+      return this.HOST + '/xmWap/#/gamepayment/callback?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+    } else {
       return this.HOST + '/xmWap/#/gamepayment/list?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
     }
   },
@@ -300,7 +304,9 @@ SdkConfig.prototype = {
   },
   /** 打开充值窗口 **/
   charge: function (order) {
-    if (!order) { return false }
+    if (!order) {
+      return false
+    }
     if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
       let url = `${this.HOST}/payment/#/payment`
       localStorage.setItem('JDD_PARAM', JSON.stringify(order))
@@ -347,7 +353,3 @@ SdkConfig.prototype = {
   }
 }
 window.SDK = new SdkConfig
-
-
-
-
