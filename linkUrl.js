@@ -309,7 +309,7 @@ SdkConfig.prototype = {
     if (!order) {
       return false
     }
-    let url = `${this.HOST}/gamepayment/list`
+    let url = `${this.HOST}/xmWap/#/gamepayment/list`
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
     parent && parent.GameEval('openweb', url)
   },
