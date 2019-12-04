@@ -285,13 +285,15 @@ SdkConfig.prototype = {
   },
   /** 获取支付回调地址 **/
   getPaymentCallbackUrl: function () {
-    // var isCheckOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
+    var isCheckPlatOrderStatus = localStorage.getItem('checkPlatOrderStatus') == 'true'
     var isCheckOrderStatus = localStorage.getItem('checkOrderStatus') == 'true' // 游戏修改后还原
     localStorage.setItem('originDeffer', window.location.href)
-    if (isCheckOrderStatus) {
-      return this.HOST + '/xmWap/#/gamepayment/callback?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
-    } else {
-      return this.HOST + '/xmWap/#/gamepayment/list?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+    if (isCheckPlatOrderStatus) { // 兼容 旧版逻辑
+      if (isCheckOrderStatus) {
+        return this.HOST + '/xmWap/#/gamepayment/callback?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      } else {
+        return this.HOST + '/xmWap/#/gamepayment/list?channel=' + this.APP_CHANNEL + '&token=' + this.ACCESS_TOKEN
+      }
     }
   },
   /** 获取游客渠道 **/
