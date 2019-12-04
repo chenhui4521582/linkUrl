@@ -309,15 +309,9 @@ SdkConfig.prototype = {
     if (!order) {
       return false
     }
-    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
-      let url = `${this.HOST}/payment/#/payment`
-      localStorage.setItem('JDD_PARAM', JSON.stringify(order))
-      parent && parent.GameEval('openweb', url)
-    } else {
-      let url = `${this.HOST}/payment/#/bdPayment`
-      localStorage.setItem('JDD_PARAM', JSON.stringify(order))
-      parent && parent.GameEval('openweb', url)
-    }
+    let url = `${this.HOST}/gamepayment/list`
+    localStorage.setItem('JDD_PARAM', JSON.stringify(order))
+    parent && parent.GameEval('openweb', url)
   },
   /** 获取平台盈利榜地址 **/
   getPlantRankingUrl: function () {
