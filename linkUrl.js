@@ -490,7 +490,7 @@ SdkConfig.prototype = {
   getActivitiesIcon: function(activityName) {
     switch (activityName) {
       case 'yiyuanchou':
-        return '//file.beeplaying.com/group1/M00/2E/0A/CmcEHFywUvqAJV7fAAi_Xl0sEWE211.gif'
+        return '//file.beeplaying.com/group1/M00/42/26/CmcEHV3t5suAJBnkAAAaLg3vpNI734.png'
 
       default:
         break
