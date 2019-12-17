@@ -447,7 +447,19 @@ SdkConfig.prototype = {
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
     localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
-    parent && parent.GameEval('openweb', url)
+    parent && parent.GameEval && parent.GameEval('openweb', url)
+  },
+  /** 打开充值回调 **/
+  checkChargeCallBack: function () {
+    var isCheckPlatOrderStatus =
+      localStorage.getItem('checkPlatOrderStatus') === 'true'
+    localStorage.setItem('originDeffer', window.location.href)
+    if (isCheckPlatOrderStatus) {
+      // 兼容 旧版逻辑
+      parent && parent.GameEval && parent.GameEval('openweb', `${this.HOST}/xmWap/#/gamepayment/callback`)
+    } else {
+      return
+    }
   },
   /** 获取平台盈利榜地址 **/
   getPlantRankingUrl: function () {
