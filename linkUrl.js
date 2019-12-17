@@ -62,7 +62,7 @@ window.linkUrl = {
   }
 }
 
-window.linkUrl.getBackUrl = function(
+window.linkUrl.getBackUrl = function (
   channel = '',
   gametype,
   bisbag,
@@ -119,7 +119,7 @@ window.linkUrl.getBackUrl = function(
   return str + concaturl
 }
 //鑾峰彇骞冲彴鏍囪瘑 H5浣跨敤
-window.linkUrl.getBackUrlFlag = function(channel) {
+window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel)
   id = id.substring(0, 6)
   var str = ''
@@ -131,7 +131,7 @@ window.linkUrl.getBackUrlFlag = function(channel) {
   return str
 }
 //鏄惁鏄父瀹㈡笭閬�
-window.linkUrl.isVistorChannel = function(channel) {
+window.linkUrl.isVistorChannel = function (channel) {
   var channels = ['100039', '100042'] //濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel)
   id = id.substring(0, 6)
@@ -142,7 +142,7 @@ window.linkUrl.isVistorChannel = function(channel) {
   )
 }
 //娓稿娓犻亾 璧勪骇杈惧埌闄愬埗璺宠浆鍦板潃 (濂界湅銆佸叏姘戦櫎澶�)
-window.linkUrl.getBackUrlByLimit = function(channel, gametype) {
+window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
   var channels = ['100039', '100042'] //濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
   var id = String(channel)
   id = id.substring(0, 6)
@@ -158,7 +158,7 @@ window.linkUrl.getBackUrlByLimit = function(channel, gametype) {
 }
 
 // 老猫停服判断 可以删除 开始
-window.catIsClose = function(date) {
+window.catIsClose = function (date) {
   return (
     new Date(date || '2019/10/15 20:00').getTime() - new Date().getTime() < 0
   )
@@ -166,7 +166,7 @@ window.catIsClose = function(date) {
 // 老猫停服判断 可以删除 结束
 
 // 判断是否是游客渠道
-window.linkUrl.getYKChannel = function(channel) {
+window.linkUrl.getYKChannel = function (channel) {
   return (
     channel == '100039' ||
     channel == '100042' ||
@@ -177,7 +177,7 @@ window.linkUrl.getYKChannel = function(channel) {
   )
 }
 
-function SdkConfig() {
+function SdkConfig () {
   this.HOST = '//wap.beeplaying.com'
   this.APP_CHANNEL =
     this._getUrlParams('channel') ||
@@ -207,7 +207,7 @@ function SdkConfig() {
 }
 
 SdkConfig.prototype = {
-  _getUrlParams: function(ename) {
+  _getUrlParams: function (ename) {
     var url = window.location.href
     var Request = {}
     if (url.indexOf('?') != -1) {
@@ -224,7 +224,7 @@ SdkConfig.prototype = {
       : Request
   },
   /** 获取游戏返回地址 **/
-  getBackUrl: function(channel, gametype, bisbag) {
+  getBackUrl: function (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel)
     /** 好看底bar 返回 **/
@@ -260,14 +260,14 @@ SdkConfig.prototype = {
     return str
   },
   /** 获取游戏type **/
-  getGameType() {
+  getGameType () {
     var pathname =
       location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
   },
   /** 获取排行榜地址 **/
-  getRankingUrl: function() {
+  getRankingUrl: function () {
     return (
       this.HOST +
       '/jsWap/#/popGame?channel=' +
@@ -282,7 +282,7 @@ SdkConfig.prototype = {
     //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
     // }
   },
-  getUseLandscape: function() {
+  getUseLandscape: function () {
     let useLandscape = false
     try {
       let screenOrientation = parent.document.querySelector(
@@ -318,7 +318,7 @@ SdkConfig.prototype = {
     return useLandscape
   },
   /** 获取支付地址 **/
-  getPaymentUrl: function() {
+  getPaymentUrl: function () {
     let useLandscape = this.getUseLandscape()
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
@@ -345,7 +345,7 @@ SdkConfig.prototype = {
     }
   },
   /** 获取SDK地址 **/
-  getTaskUrl: function() {
+  getTaskUrl: function () {
     var gametype = this.getGameType()
     //横屏游戏先使用深色的
     var useDark = false
@@ -388,7 +388,7 @@ SdkConfig.prototype = {
     }
   },
   /** 获取奇遇任务 **/
-  getAdventureUrl: function() {
+  getAdventureUrl: function () {
     var gametype = this.getGameType()
     return (
       this.HOST +
@@ -401,7 +401,7 @@ SdkConfig.prototype = {
     )
   },
   /** 获取支付回调地址 **/
-  getPaymentCallbackUrl: function() {
+  getPaymentCallbackUrl: function () {
     var isCheckPlatOrderStatus =
       localStorage.getItem('checkPlatOrderStatus') == 'true'
     var isCheckOrderStatus = localStorage.getItem('checkOrderStatus') == 'true' // 游戏修改后还原
@@ -428,7 +428,7 @@ SdkConfig.prototype = {
     }
   },
   /** 获取游客渠道 **/
-  getIsVisitorChannel: function() {
+  getIsVisitorChannel: function () {
     if (
       ['100039', '100042', '100047001', '100048001', '100070'].indexOf(
         this.APP_CHANNEL
@@ -440,16 +440,17 @@ SdkConfig.prototype = {
     }
   },
   /** 打开充值窗口 **/
-  charge: function(order) {
+  charge: function (order) {
     if (!order) {
       return false
     }
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
+    localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
     parent && parent.GameEval('openweb', url)
   },
   /** 获取平台盈利榜地址 **/
-  getPlantRankingUrl: function() {
+  getPlantRankingUrl: function () {
     if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
       return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=index`
     } else {
@@ -457,7 +458,7 @@ SdkConfig.prototype = {
     }
   },
   /** 获取平台客服地址 **/
-  getPlantServices: function() {
+  getPlantServices: function () {
     if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
       return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
     } else {
@@ -465,7 +466,7 @@ SdkConfig.prototype = {
     }
   },
   //充值100081
-  charge100081: function(order) {
+  charge100081: function (order) {
     wifikey.pay({
       orderInfo: {
         tpOrderId: order
@@ -487,7 +488,7 @@ SdkConfig.prototype = {
     })
   },
   // 获取活动icon
-  getActivitiesIcon: function(activityName) {
+  getActivitiesIcon: function (activityName) {
     switch (activityName) {
       case 'yiyuanchou':
         return 'https://file.beeplaying.com/group1/M00/42/26/CmcEHV3t5suAJBnkAAAaLg3vpNI734.png'
