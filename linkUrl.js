@@ -118,7 +118,6 @@ window.linkUrl.getBackUrl = function (
   }
   return str + concaturl
 }
-//鑾峰彇骞冲彴鏍囪瘑 H5浣跨敤
 window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel)
   id = id.substring(0, 6)
@@ -126,13 +125,12 @@ window.linkUrl.getBackUrlFlag = function (channel) {
   if (window.linkUrl.url[id] && window.linkUrl.url[id].startsWith('/')) {
     str = window.linkUrl.url[id].replace(/\//g, '')
   } else {
-    str = 'wap'
+    str = 'xmWap'
   }
   return str
 }
-//鏄惁鏄父瀹㈡笭閬�
 window.linkUrl.isVistorChannel = function (channel) {
-  var channels = ['100039', '100042'] //濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
+  var channels = ['100039', '100042'] 
   var id = String(channel)
   id = id.substring(0, 6)
   return (
@@ -141,9 +139,8 @@ window.linkUrl.isVistorChannel = function (channel) {
       JSON.parse(localStorage.getItem('visitorLoginVal')))
   )
 }
-//娓稿娓犻亾 璧勪骇杈惧埌闄愬埗璺宠浆鍦板潃 (濂界湅銆佸叏姘戦櫎澶�)
 window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
-  var channels = ['100039', '100042'] //濂界湅瑙嗛銆佸叏姘戝皬瑙嗛娓犻亾
+  var channels = ['100039', '100042']
   var id = String(channel)
   id = id.substring(0, 6)
   if (channels.indexOf(id) == -1) {
@@ -460,19 +457,11 @@ SdkConfig.prototype = {
   },
   /** 获取平台盈利榜地址 **/
   getPlantRankingUrl: function () {
-    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
-      return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=index`
-    } else {
-      return `${this.HOST}/bdWap/#/profitlist/0?channel=${this.APP_CHANNEL}&from=index`
-    }
+    return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=index`
   },
   /** 获取平台客服地址 **/
   getPlantServices: function () {
-    if (linkUrl.url[this.APP_CHANNEL] == '/xmWap/') {
-      return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
-    } else {
-      return `${this.HOST}/bdWap/#/problem?tab=contact_personal&channel=${this.APP_CHANNEL}`
-    }
+    return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
   },
   //充值100081
   charge100081: function (order) {
