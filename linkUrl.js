@@ -130,7 +130,7 @@ window.linkUrl.getBackUrlFlag = function (channel) {
   return str
 }
 window.linkUrl.isVistorChannel = function (channel) {
-  var channels = ['100039', '100042'] 
+  var channels = ['100039', '100042']
   var id = String(channel)
   id = id.substring(0, 6)
   return (
@@ -354,9 +354,6 @@ SdkConfig.prototype = {
             useDark = true
           }
         }
-      }
-      if (this.APP_CHANNEL == 100039) {
-        useDark = true
       }
     } catch (e) {
       useDark = false
