@@ -369,6 +369,47 @@ SdkConfig.prototype = {
       )
     }
   },
+
+  /** 获取SDK地址（原） **/
+  // getTaskUrl: function () {
+  //   var gametype = this.getGameType()
+  //   //横屏游戏先使用深色的
+  //   var useDark = false
+  //   try {
+  //     var games = ['/fish/', '/landlord/']
+  //     if (parent.location.href) {
+  //       for (var game of games) {
+  //         if (parent.location.href.indexOf(game) > -1) {
+  //           useDark = true
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     useDark = false
+  //   }
+
+  //   if (!useDark) {
+  //     return (
+  //       this.HOST +
+  //       '/xmWap/#/sdk/task?channel=' +
+  //       this.APP_CHANNEL +
+  //       '&gametype=' +
+  //       gametype +
+  //       '&token=' +
+  //       this.ACCESS_TOKEN
+  //     )
+  //   } else {
+  //     return (
+  //       this.HOST +
+  //       '/activities/taskgames.html?channel=' +
+  //       this.APP_CHANNEL +
+  //       '&gametype=' +
+  //       gametype +
+  //       '&token=' +
+  //       this.ACCESS_TOKEN
+  //     )
+  //   }
+  // },
   /** 获取奇遇任务 **/
   getAdventureUrl: function () {
     var gametype = this.getGameType()
