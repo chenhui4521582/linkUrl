@@ -343,26 +343,14 @@ SdkConfig.prototype = {
   },
   /** 获取SDK地址 **/
   getTaskUrl: function () {
-    var gametype = this.getGameType()
+    let gametype = this.getGameType()
     //横屏游戏先使用深色的
-    var useDark = false
-    try {
-      var games = ['/fish/', '/landlord/']
-      if (parent.location.href) {
-        for (var game of games) {
-          if (parent.location.href.indexOf(game) > -1) {
-            useDark = true
-          }
-        }
-      }
-    } catch (e) {
-      useDark = false
-    }
+    let useLandscape = this.getUseLandscape()
 
-    if (!useDark) {
+    if (useLandscape) {
       return (
         this.HOST +
-        '/xmWap/#/sdk/task?channel=' +
+        '/activities/taskgames.html?channel=' +
         this.APP_CHANNEL +
         '&gametype=' +
         gametype +
@@ -372,7 +360,7 @@ SdkConfig.prototype = {
     } else {
       return (
         this.HOST +
-        '/activities/taskgames.html?channel=' +
+        '/xmWap/#/sdk/task?channel=' +
         this.APP_CHANNEL +
         '&gametype=' +
         gametype +
