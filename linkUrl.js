@@ -199,6 +199,7 @@ function SdkConfig () {
     marbles: 21,
     mahjong: 22,
     zodiac: 23,
+    bird: 26,
     default: 0
   }
 }
