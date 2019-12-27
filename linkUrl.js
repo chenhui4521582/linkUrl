@@ -484,7 +484,7 @@ SdkConfig.prototype = {
   },
   /** 获取平台盈利榜地址 **/
   getPlantRankingUrl: function () {
-    return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=index`
+    return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=game`
   },
   /** 获取平台客服地址 **/
   getPlantServices: function () {
