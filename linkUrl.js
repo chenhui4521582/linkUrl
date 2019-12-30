@@ -470,15 +470,28 @@ SdkConfig.prototype = {
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
     localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
-    parent && parent.GameEval && parent.GameEval('openweb', url)
+    try{
+      if(GameEval)
+      {
+        GameEval('openweb', url)
+      }
+    }catch(e){
+      console.log('charge openweb error');
+    }
   },
   /** 打开充值回调 **/
   chargeCallBack: function () {
     var isCheckPlatOrderStatus = localStorage.getItem('checkPlatOrderStatus') === 'true'
     localStorage.setItem('originDeffer', window.location.href)
     if (isCheckPlatOrderStatus) {
-      // 兼容 旧版逻辑
-      parent && parent.GameEval && parent.GameEval('openweb', `${this.HOST}/xmWap/#/gamepayment/callback`)
+      try{
+        if(GameEval)
+        {
+          GameEval('openweb', `${this.HOST}/xmWap/#/gamepayment/callback`)
+        }
+      }catch(e){
+        console.log('chargeCallBack openweb error');
+      }
     }
   },
   /** 获取平台盈利榜地址 **/
