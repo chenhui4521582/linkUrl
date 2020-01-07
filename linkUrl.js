@@ -471,13 +471,12 @@ SdkConfig.prototype = {
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
     localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
-    try{
-      if(GameEval)
-      {
+    try {
+      if (GameEval) {
         GameEval('openweb', url)
       }
-    }catch(e){
-      console.log('charge openweb error');
+    } catch (e) {
+      console.log('charge openweb error')
     }
   },
   /** 打开充值回调 **/
@@ -485,13 +484,12 @@ SdkConfig.prototype = {
     var isCheckPlatOrderStatus = localStorage.getItem('checkPlatOrderStatus') === 'true'
     localStorage.setItem('originDeffer', window.location.href)
     if (isCheckPlatOrderStatus) {
-      try{
-        if(GameEval)
-        {
+      try {
+        if (GameEval) {
           GameEval('openweb', `${this.HOST}/xmWap/#/gamepayment/callback`)
         }
-      }catch(e){
-        console.log('chargeCallBack openweb error');
+      } catch (e) {
+        console.log('chargeCallBack openweb error')
       }
     }
   },
@@ -533,6 +531,26 @@ SdkConfig.prototype = {
 
       default:
         break
+    }
+  },
+  // 打开猫活动
+  openActivityPop: function (activityName) {
+    let url = ""
+    switch (activityName) {
+      // 猫新年活动
+      case 'catNewYear':
+        url = `${this.HOST}/activities/catandmouse.html#/?time=${new Date().getTime()}`
+        break
+
+      default:
+        break
+    }
+    try {
+      if (GameEval) {
+        GameEval('openweb', url)
+      }
+    } catch (e) {
+      console.log('openActivityPop openweb error')
     }
   }
 }
