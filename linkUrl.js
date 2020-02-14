@@ -192,6 +192,7 @@ function SdkConfig () {
     fish: 10,
     crush: 12,
     crush2: 12,
+    crush3: 27,
     kingdom2: 13,
     landlord: 15,
     square: 18,
