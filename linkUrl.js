@@ -203,6 +203,14 @@ function SdkConfig () {
     bird: 26,
     default: 0
   }
+  if(this.APP_CHANNEL == 100000){
+    try{
+        var link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = 'https://wap.beeplaying.com/xmWap/img/icon_game.png';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }catch(e){}
+  }
 }
 
 SdkConfig.prototype = {
