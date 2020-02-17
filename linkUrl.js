@@ -206,8 +206,9 @@ function SdkConfig () {
   if(this.APP_CHANNEL == 100000){
     try{
         var link = document.createElement('link');
-        link.rel = 'icon';
-        link.href = 'https://wap.beeplaying.com/xmWap/img/icon_game.png';
+        link.rel = 'apple-touch-icon';
+        link.sizes='114*114';
+        link.href = 'https://wap.beeplaying.com/xmWap/img/icon_ddw.png';
         document.getElementsByTagName('head')[0].appendChild(link);
     }catch(e){}
   }
