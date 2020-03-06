@@ -116,7 +116,7 @@ window.linkUrl.getBackUrl = function (
       str = window.linkUrl.url['default'] + (bisbag ? '?skip=bag' : '')
     }
   }
-  return str + concaturl
+  return str + concaturl+'&ts='+Date.now();
 }
 window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel)
