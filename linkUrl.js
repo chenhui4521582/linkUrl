@@ -59,6 +59,18 @@ window.linkUrl = {
     '100081': '/xmWap/',
     '700002': '/llwWap/',
     default: '/xmWap/'
+  },
+  get companyInfo(){
+    let host = location.host;
+    let infos ={
+      'default':{
+        'name':'苏州玩蜂软件科技有限公司',
+        'alias':'玩蜂科技',
+        'copyright_company':'成都六六五网络科技有限公司',
+        'icp':'蜀ICP备17017217号-1'
+      }
+    }
+    return infos[host] || infos['default'];
   }
 }
 
