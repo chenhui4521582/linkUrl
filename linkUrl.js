@@ -64,8 +64,8 @@ window.linkUrl = {
     let host = location.host;
     let infos ={
       'default':{
-        'name':'苏州玩蜂软件科技有限公司',
-        'alias':'玩蜂科技',
+        'name':'成都六六五网络科技有限公司',
+        'alias':'六六五网络科技',
         'copyright_company':'成都六六五网络科技有限公司',
         'icp':'蜀ICP备17017217号-1'
       }
