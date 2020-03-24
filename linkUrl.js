@@ -8,69 +8,24 @@ if (localStorage.getItem('APP_CHANNEL') == 100081) {
 }
 window.linkUrl = {
   url: {
-    '100001': '/xmWap/',
-    '100002': '/xmWap/',
-    '100004': '/xmWap/',
-    '100005': '/xmWap/',
-    '100006': '/xmWap/',
-    '100013': '/xmWap/',
-    '100022': '/xmWap/',
-    '100023': '/xmWap/',
-    '100026': '/xmWap/',
-    '100027': '/xmWap/',
-    '100028': '/xmWap/',
-    '100029': '/xmWap/',
     '100032': '/yunqingWap/',
-    '100035': '/xmWap/',
-    '100036': '/xmWap/',
-    '100038': '/xmWap/',
-    '100039': '/xmWap/',
-    '100039001': '/xmWap/',
-    '100040': '/xmWap/',
-    '100041': '/xmWap/',
-    '100042': '/xmWap/',
-    '100045': '/xmWap/',
-    '100046': '/xmWap/',
     '100047': '/miniWap/',
     '100048': '/miniWap/',
-    '100049': '/xmWap/',
-    '100050': '/xmWap/',
-    '100051': '/xmWap/',
-    '100052': '/xmWap/',
-    '100053': '/xmWap/',
-    '100054': '/xmWap/',
-    '100055': '/xmWap/',
-    '100056': '/xmWap/',
-    '100057': '/xmWap/',
-    '100058': '/xmWap/',
-    '100064': '/xmWap/',
-    '100077': '/xmWap/',
-    '100065': '/xmWap/',
-    '100067': '/xmWap/',
-    '100068': '/xmWap/',
-    '100069': '/xmWap/',
-    '100070': '/xmWap/',
     '100072': '/miniWap/',
-    '100073': '/xmWap/',
-    '100074': '/xmWap/',
-    '100075': '/xmWap/',
-    '100076': '/xmWap/',
-    '100080': '/xmWap/',
-    '100081': '/xmWap/',
     '700002': '/llwWap/',
     default: '/xmWap/'
   },
-  get companyInfo(){
-    let host = location.host;
-    let infos ={
-      'default':{
-        'name':'成都六六五网络科技有限公司',
-        'alias':'六六五网络科技',
-        'copyright_company':'成都六六五网络科技有限公司',
-        'icp':'蜀ICP备17017217号-1'
+  get companyInfo () {
+    let host = location.host
+    let infos = {
+      'default': {
+        'name': '成都六六五网络科技有限公司',
+        'alias': '六六五网络科技',
+        'copyright_company': '成都六六五网络科技有限公司',
+        'icp': '蜀ICP备17017217号-1'
       }
     }
-    return infos[host] || infos['default'];
+    return infos[host] || infos['default']
   }
 }
 
@@ -128,7 +83,7 @@ window.linkUrl.getBackUrl = function (
       str = window.linkUrl.url['default'] + (bisbag ? '?skip=bag' : '')
     }
   }
-  return str + concaturl+'&ts='+Date.now();
+  return str + concaturl + '&ts=' + Date.now()
 }
 window.linkUrl.getBackUrlFlag = function (channel) {
   var id = String(channel)
