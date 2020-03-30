@@ -170,7 +170,7 @@ function SdkConfig () {
     bird: 26,
     default: 0
   }
-  if (this.APP_CHANNEL == 100000) {
+  if (this.APP_CHANNEL == 100061) {
     try {
       var link = document.createElement('link')
       link.rel = 'apple-touch-icon'
