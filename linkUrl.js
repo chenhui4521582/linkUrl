@@ -347,7 +347,8 @@ SdkConfig.prototype = {
       '&gametype=' +
       gametype +
       '&token=' +
-      this.ACCESS_TOKEN
+      this.ACCESS_TOKEN+
+      '&vt='+new Date().getTime()
     )
   },
   /** 获取支付回调地址 **/
