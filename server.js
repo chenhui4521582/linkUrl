@@ -111,12 +111,15 @@ function closeWeiXinShare () {
   WxScript.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
   document.head.appendChild(WxScript);
   if (typeof WeixinJSBridge == "undefined") {
+    alert(111)
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
     } else if (document.attachEvent) {
       document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
       document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
     }
+  } else {
+    onBridgeReady();
   }
 }
 
@@ -129,15 +132,8 @@ if (getRequest()['channel']) {
 }
 var GameArr = ['landlord', 'dart', 'fish', 'kingdom', 'legion', 'moto', 'ring', 'samguk', 'crush', 'tcard', 'taurus', 'cat']
 
-if (curChannel.indexOf('100029') != -1) {
+if (['100029', '110002', '110004', '110003'].indexOf(curChannel) != -1) {
   closeWeiXinShare();
-}
-
-for (let i = 0; i < GameArr.length; i++) {
-  if (window.location.href.indexOf(GameArr[i]) != -1 && (curChannel.indexOf('110002') != -1 || curChannel.indexOf('110004') != -1 || curChannel.indexOf('110003') != -1)) {
-    closeWeiXinShare();
-    break;
-  }
 }
 
 localStorage.removeItem('originDeffer');
