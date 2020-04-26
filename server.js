@@ -117,8 +117,6 @@ function closeWeiXinShare () {
       document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
       document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
     }
-  } else {
-    onBridgeReady();
   }
 }
 
