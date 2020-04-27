@@ -168,6 +168,8 @@ function SdkConfig () {
     mahjong: 22,
     zodiac: 23,
     bird: 26,
+    xiyou: 29,
+    ttfjdz: 105,
     default: 0
   }
   if (this.APP_CHANNEL == 100061) {
@@ -347,8 +349,8 @@ SdkConfig.prototype = {
       '&gametype=' +
       gametype +
       '&token=' +
-      this.ACCESS_TOKEN+
-      '&vt='+new Date().getTime()
+      this.ACCESS_TOKEN +
+      '&vt=' + new Date().getTime()
     )
   },
   /** 获取支付回调地址 **/
