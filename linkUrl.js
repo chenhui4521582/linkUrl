@@ -520,16 +520,19 @@ SdkConfig.prototype = {
     xhr.open('POST', url, true);
     xhr.setRequestHeader("Authorization", this.ACCESS_TOKEN);
     xhr.setRequestHeader("App-Channel", this.APP_CHANNEL);
-    xhr.send()
     xhr.onreadystatechange = function() {
-      if(xhr.status == 200){
-        let script = document.createElement('script')
-        script.type = 'text/javascript'
-        script.innerHTML = xhr.responseText
-        let head = document.getElementsByTagName('head')[0];
-        (head || document.body).appendChild(script)
+      if (xhr.readyState==4){
+        if(xhr.status == 200){
+          let script = document.createElement('script')
+          script.type = 'text/javascript'
+          script.innerHTML = xhr.responseText
+          console.log(script)
+          let head = document.getElementsByTagName('head')[0] || document.body
+          head.appendChild(script)
+        }
       }
     }
+    xhr.send()
   },
   // 微信分享初始化
   wechatShareInit: function () {
