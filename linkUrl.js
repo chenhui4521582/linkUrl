@@ -526,7 +526,6 @@ SdkConfig.prototype = {
           let script = document.createElement('script')
           script.type = 'text/javascript'
           script.innerHTML = xhr.responseText
-          console.log(script)
           let head = document.getElementsByTagName('head')[0] || document.body
           head.appendChild(script)
         }
