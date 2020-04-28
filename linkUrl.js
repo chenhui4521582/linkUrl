@@ -120,7 +120,6 @@ window.linkUrl.getBackUrlByLimit = function (channel, gametype) {
     )
   }
 }
-
 // 老猫停服判断 可以删除 开始
 window.catIsClose = function (date) {
   return (
@@ -143,12 +142,8 @@ window.linkUrl.getYKChannel = function (channel) {
 
 function SdkConfig () {
   this.HOST = '//wap.beeplaying.com'
-  this.APP_CHANNEL =
-    this._getUrlParams('channel') ||
-    localStorage.getItem('APP_CHANNEL') ||
-    '100001'
-  this.ACCESS_TOKEN =
-    this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
+  this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
+  this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
   this.CHANNEL_CONFIG = window.linkUrl.url
   this.GAMETYPE = {
     billiards: 2,
@@ -171,6 +166,38 @@ function SdkConfig () {
     xiyou: 29,
     ttfjdz: 105,
     default: 0
+  }
+  this.loadScripts =  function (urls, callback) {
+    callback = callback || function () { }
+    // 添加script属性，并添加到head中
+    let loader = function (src, handler) {
+      let script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = src
+      // 重点！！！！script加载成功
+      script.onload = function () {
+        script.onload = null
+        script.onerror = null
+        handler()
+      }
+      script.onerror = function () {
+        script.onload = null
+        script.onerror = null
+        callback({
+          message: src + '依赖未加载成功！'
+        })
+      }
+      let head = document.getElementsByTagName('head')[0];
+      (head || document.body).appendChild(script)
+    };
+    // 自执行函数，用于循环loader
+    (function run () {
+      if (urls.length > 0) {
+        loader(urls.shift(), run)
+      } else {
+        callback()
+      }
+    })()
   }
   if (this.APP_CHANNEL == 100061) {
     try {
@@ -338,7 +365,6 @@ SdkConfig.prototype = {
       useLandscape
     )
   },
-
   /** 获取奇遇任务 **/
   getAdventureUrl: function () {
     var gametype = this.getGameType()
@@ -481,6 +507,42 @@ SdkConfig.prototype = {
     } catch (e) {
       console.log('openActivityPop openweb error')
     }
+  },
+  // 微信分享 加载jsSDK
+  loadJs: function () {
+    const url = '//res2.wx.qq.com/open/js/jweixin-1.6.0.js'
+    this.loadScripts([url], () => {
+      this.getShareMessage()
+    })
+  },
+  // 微信分享 获取自定义分享内容
+  getShareMessage: function () {
+    let xhr = new XMLHttpRequest();
+    let url = `//platform-api.beeplaying.com/wap/api/oauth/wx/share/${this.APP_CHANNEL}/platformShare`
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader("Authorization", this.ACCESS_TOKEN);
+    xhr.setRequestHeader("App-Channel", this.APP_CHANNEL);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState==4){
+        if(xhr.status == 200){
+          let script = document.createElement('script')
+          script.type = 'text/javascript'
+          script.innerHTML = xhr.responseText
+          let head = document.getElementsByTagName('head')[0] || document.body
+          head.appendChild(script)
+        }
+      }
+    }
+    xhr.send()
+  },
+  // 微信分享初始化
+  wechatShareInit: function () {
+    if(['110002001', '110002002', '11003007'].indexOf(this.APP_CHANNEL) > -1) {
+      this.loadJs()
+    }
   }
 }
 window.SDK = new SdkConfig()
+
+window.SDK.wechatShareInit()
+
