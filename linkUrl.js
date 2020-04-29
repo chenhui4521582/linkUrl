@@ -535,7 +535,7 @@ SdkConfig.prototype = {
   },
   // 微信分享初始化
   wechatShareInit: function () {
-    if(['110002001', '110002002', '11003007'].indexOf(this.APP_CHANNEL) > -1) {
+    if(['110002001', '110002002', '110002007'].indexOf(this.APP_CHANNEL) > -1) {
       this.loadJs()
     }
   }
