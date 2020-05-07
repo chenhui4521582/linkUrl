@@ -14,31 +14,6 @@ window.linkUrl = {
     '100072': '/miniWap/',
     '700002': '/llwWap/',
     default: '/xmWap/'
-  },
-  get companyInfo () {
-
-    let channel = localStorage['APP_CHANNEL'];
-
-    let wfInfo = {
-      'name': '苏州玩蜂软件科技有限公司',
-      'alias': '玩蜂软件科技',
-      'copyright_company': '苏州玩蜂软件科技有限公司',
-      'icp': '苏ICP备17060724号-1'
-    }
-
-    let infos = {
-      '100042': wfInfo,
-      '110002': wfInfo,
-      '110001': wfInfo,
-      '110007': wfInfo,
-      'default': {
-        'name': '成都六六五网络科技有限公司',
-        'alias': '六六五网络科技',
-        'copyright_company': '成都六六五网络科技有限公司',
-        'icp': '蜀ICP备17017217号-1'
-      }
-    }
-    return infos[channel] || infos['default']
   }
 }
 
