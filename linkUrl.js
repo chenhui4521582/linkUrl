@@ -142,7 +142,6 @@ function SdkConfig () {
     fish: 10,
     crush: 12,
     crush2: 12,
-    crush3: 27,
     kingdom2: 13,
     landlord: 15,
     square: 18,
@@ -151,11 +150,13 @@ function SdkConfig () {
     mahjong: 22,
     zodiac: 23,
     bird: 26,
+    crush3: 27,
     xiyou: 29,
     ttfjdz: 105,
+    hitmouse: 106,
     default: 0
   }
-  this.loadScripts =  function (urls, callback) {
+  this.loadScripts = function (urls, callback) {
     callback = callback || function () { }
     // 添加script属性，并添加到head中
     let loader = function (src, handler) {
@@ -505,14 +506,14 @@ SdkConfig.prototype = {
   },
   // 微信分享 获取自定义分享内容
   getShareMessage: function () {
-    let xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest()
     let url = `//platform-api.beeplaying.com/wap/api/oauth/wx/share/${this.APP_CHANNEL}/platformShare`
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader("Authorization", this.ACCESS_TOKEN);
-    xhr.setRequestHeader("App-Channel", this.APP_CHANNEL);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState==4){
-        if(xhr.status == 200){
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader("Authorization", this.ACCESS_TOKEN)
+    xhr.setRequestHeader("App-Channel", this.APP_CHANNEL)
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
           let script = document.createElement('script')
           script.type = 'text/javascript'
           script.innerHTML = xhr.responseText
@@ -525,7 +526,7 @@ SdkConfig.prototype = {
   },
   // 微信分享初始化
   wechatShareInit: function () {
-    if(['110002001', '110002002', '110002007','100093'].indexOf(this.APP_CHANNEL) > -1) {
+    if (['110002001', '110002002', '110002007', '100093'].indexOf(this.APP_CHANNEL) > -1) {
       this.loadJs()
     }
   }
