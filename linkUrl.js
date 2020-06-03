@@ -415,6 +415,7 @@ SdkConfig.prototype = {
       return false
     }
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
+    alert(window.location.href)
     localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
     try {
