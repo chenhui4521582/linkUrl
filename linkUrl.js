@@ -315,6 +315,7 @@ SdkConfig.prototype = {
   /** 获取支付地址 **/
   getPaymentUrl: function () {
     let useLandscape = this.getUseLandscape()
+    localStorage.setItem('originDeffer', window.location.href)
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
       return (
@@ -415,7 +416,6 @@ SdkConfig.prototype = {
       return false
     }
     let url = `${this.HOST}/xmWap/#/gamepayment/list`
-    alert(window.location.href)
     localStorage.setItem('originDeffer', window.location.href)
     localStorage.setItem('JDD_PARAM', JSON.stringify(order))
     try {
