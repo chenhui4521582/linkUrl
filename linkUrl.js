@@ -315,6 +315,7 @@ SdkConfig.prototype = {
   /** 获取支付地址 **/
   getPaymentUrl: function () {
     let useLandscape = this.getUseLandscape()
+    alert(window.location.href)
     localStorage.setItem('originDeffer', window.location.href)
     if (useLandscape) {
       /* Landscape  横屏模式 商城*/
@@ -412,6 +413,7 @@ SdkConfig.prototype = {
   },
   /** 打开充值窗口 **/
   charge: function (order) {
+    alert(window.location.href)
     if (!order) {
       return false
     }
