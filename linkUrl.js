@@ -152,6 +152,7 @@ function SdkConfig () {
     bird: 26,
     crush3: 27,
     xiyou: 29,
+    boom: 30,
     ttfjdz: 105,
     hitmouse: 106,
     default: 0
