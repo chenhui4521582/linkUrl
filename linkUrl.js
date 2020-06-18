@@ -690,12 +690,14 @@ class RetunBack extends SdkConfig {
       })
     }
     more.onclick = () => {
+      this.remocePopup()
       this.gotoIndex() 
       this._marchSetsPoint('A_H5PT0019003651', {
         target_project_id: this._getGameType()
       })
     }
     cancel.onclick = () => { 
+      this.remocePopup()
       this.closeWebView()
       this._marchSetsPoint('A_H5PT0019003649', {
         target_project_id: this._getGameType()
@@ -703,6 +705,7 @@ class RetunBack extends SdkConfig {
     }
     for(let i in games) {
       games[i].onclick = () => {
+        this.remocePopup()
         window.location.href = url[i]
       }
     }
