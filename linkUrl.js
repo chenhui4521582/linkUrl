@@ -735,8 +735,8 @@ class RetunBack extends SdkConfig {
     window.backHandler = () => {
       this.createPopup()
     }
-    // let endTime = new Date(new Date().toLocaleDateString()).getTime()
-    // localStorage.setItem('linkurl-backPopup', `${endTime}`)
+    let endTime = new Date(new Date().toLocaleDateString()).getTime()
+    localStorage.setItem('linkurl-backPopup', `${endTime}`)
     this._marchSetsPoint('A_H5PT0019003648', {
       target_project_id: this._getGameType()
     })
