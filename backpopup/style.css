@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.linkurl-backPopup {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 15;
+}
+.linkurl-backPopup .mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0,0,0,.7);
+}
+.linkurl-backPopup .popup-wrap {
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0 1.56em;
+  width: 15.63em;
+  height: 20.53em;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  background: url(./bg.png) no-repeat center top;
+  background-size: 100% 100%;
+}
+.linkurl-backPopup .popup-wrap .title {
+  padding: 1.2em 0 1.1em;
+  text-align: center;
+  font-size: .93em;
+  color: #000;
+}
+.linkurl-backPopup .popup-wrap .gameList {
+  display: flex;
+  justify-content: space-around;
+}
+.linkurl-backPopup .popup-wrap .gameList .item {
+  text-align: center;
+}
+.linkurl-backPopup .popup-wrap .gameList .item img {
+  margin-bottom: .7em;
+  vertical-align: top;
+  width: 2.666em;
+  height: 2.666em;
+}
+.linkurl-backPopup .popup-wrap .gameList .item p {
+  vertical-align: top;
+  white-space: nowrap;
+  font-size: .666em;
+  color: #888888;
+  text-align: center;
+}
+
+.linkurl-backPopup .popup-wrap .next .title {
+  padding: 2.43em 0 .9em;
+  text-align: center;
+  font-size: .66em;
+  color: #999999;
+}
+
+.linkurl-backPopup .popup-wrap .next .next-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.linkurl-backPopup .popup-wrap .next .next-wrap .item {
+  color: #666666;
+  white-space: nowrap;
+}
+
+.linkurl-backPopup .popup-wrap .next .next-wrap .item img {
+  width: 5.766em;
+  height: 3.1em;
+}
+.linkurl-backPopup .popup-wrap .next .next-wrap .item p {
+  font-size: .667em;
+  text-align: left;
+}
+
+.linkurl-backPopup .popup-wrap .btns {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.linkurl-backPopup .popup-wrap .btns .item {
+  width: 50%;
+  height: 3.8em;
+  line-height: 3.8em;
+  text-align: center;
+  font-size: .8em;
+  font-weight:400;
+}
+.linkurl-backPopup .popup-wrap .btns .item:first-child {
+  color: #333333;
+}
+.linkurl-backPopup .popup-wrap .btns .item:last-child {
+  color: #FF0505;
+}
+.linkurl-backPopup .popup-wrap .close {
+  position: absolute;
+  left: 50%;
+  bottom: -2em;
+  transform: translate(-50%, 0);
+  width: 1.333em;
+  height: 1.333em;
+  background: url(./close.png) no-repeat center top;
+  background-size: 100% 100%;
+}
+
