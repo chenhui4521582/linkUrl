@@ -692,7 +692,7 @@ class RetunBack extends SdkConfig {
     more.onclick = () => {
       this.remocePopup()
       this.gotoIndex() 
-      this._marchSetsPoint('A_H5PT0019003651', {
+      this._marchSetsPoint('A_H5PT0019003650', {
         target_project_id: this._getGameType()
       })
     }
