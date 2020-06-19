@@ -625,7 +625,6 @@ class RetunBack extends SdkConfig {
     let item3 = require('./backpopup/item3.png').default
     let my = require('./backpopup/my.png').default
     let gameEntry = require('./backpopup/game-entry.png').default
-    let close = require('./backpopup/close.png').default
     let popup = document.createElement('div')
     popup.className = 'linkurl-backPopup'
     let html = `
@@ -740,9 +739,9 @@ class RetunBack extends SdkConfig {
       this._marchSetsPoint('A_H5PT0019003648', {
         target_project_id: this._getGameType()
       })
+      let endTime = new Date(new Date().toLocaleDateString()).getTime()
+      localStorage.setItem('linkurl-backPopup', `${endTime}`)
     }
-    let endTime = new Date(new Date().toLocaleDateString()).getTime()
-    localStorage.setItem('linkurl-backPopup', `${endTime}`)
   }
 
   init () {
