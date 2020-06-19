@@ -220,6 +220,7 @@ class SdkConfig {
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 ||  u.indexOf('XiaoMi') > -1; //android终端
     /** 获取用户信息 **/
     var userInfo = localStorage.getItem('user_Info')
+    userInfo = JSON.parse(userInfo)
     /** 平台数据 **/
     var _beginTime = Date.now()
     var _channel = this.APP_CHANNEL
@@ -254,7 +255,6 @@ class SdkConfig {
       ]
     }
     /** 创建formDate 对象 并把数据插入formDate **/
-    console.log(sendMessage)
     var formData = new FormData()
     formData.append('appName', 'wf_game')
     formData.append('json', JSON.stringify(sendMessage))
