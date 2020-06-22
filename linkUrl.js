@@ -135,6 +135,8 @@ function SdkConfig () {
   this.CHANNEL_CONFIG = window.linkUrl.url
   this.GAMETYPE = {
     billiards: 2,
+    'billiardsgame.html': 2,
+    'billiardsindex.html': 2,
     ball: 2,
     ring: 3,
     ring2: 3,
