@@ -16,7 +16,6 @@ window.linkUrl = {
     default: '/xmWap/'
   }
 }
-
 window.linkUrl.getBackUrl = function (
   channel = '',
   gametype,
@@ -115,7 +114,6 @@ window.catIsClose = function (date) {
   )
 }
 // 老猫停服判断 可以删除 结束
-
 // 判断是否是游客渠道
 window.linkUrl.getYKChannel = function (channel) {
   return (
@@ -128,38 +126,38 @@ window.linkUrl.getYKChannel = function (channel) {
   )
 }
 
-function SdkConfig () {
-  this.HOST = '//wap.beeplaying.com'
-  this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
-  this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
-  this.CHANNEL_CONFIG = window.linkUrl.url
-  this.GAMETYPE = {
-    billiards: 2,
-    'billiardsgame.html': 2,
-    'billiardsindex.html': 2,
-    ball: 2,
-    ring: 3,
-    ring2: 3,
-    legion: 4,
-    fish: 10,
-    crush: 12,
-    crush2: 12,
-    kingdom2: 13,
-    landlord: 15,
-    square: 18,
-    gofish: 20,
-    marbles: 21,
-    mahjong: 22,
-    zodiac: 23,
-    bird: 26,
-    crush3: 27,
-    xiyou: 29,
-    boom: 30,
-    ttfjdz: 105,
-    hitmouse: 106,
-    default: 0
+class SdkConfig {
+  constructor () {
+    this.HOST = '//wap.beeplaying.com'
+    this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
+    this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
+    this.CHANNEL_CONFIG = window.linkUrl.url
+    this.GAMETYPE = {
+      billiards: 2,
+      ball: 2,
+      ring: 3,
+      ring2: 3,
+      legion: 4,
+      fish: 10,
+      crush: 12,
+      crush2: 12,
+      kingdom2: 13,
+      landlord: 15,
+      square: 18,
+      gofish: 20,
+      marbles: 21,
+      mahjong: 22,
+      zodiac: 23,
+      bird: 26,
+      crush3: 27,
+      xiyou: 29,
+      ttfjdz: 105,
+      hitmouse: 106,
+      default: 0
+    }
   }
-  this.loadScripts = function (urls, callback) {
+  /** 公共方法  |  动态引入js **/
+  _loadScripts (urls, callback) {
     callback = callback || function () { }
     // 添加script属性，并添加到head中
     let loader = function (src, handler) {
@@ -191,19 +189,16 @@ function SdkConfig () {
       }
     })()
   }
-  if (this.APP_CHANNEL == 100061) {
-    try {
-      var link = document.createElement('link')
-      link.rel = 'apple-touch-icon'
-      link.sizes = '114*114'
-      link.href = 'https://wap.beeplaying.com/xmWap/img/icon_ddw.png'
-      document.getElementsByTagName('head')[0].appendChild(link)
-    } catch (e) { }
+  /** 公共方法  |  动态引入css **/
+  _loadCSS (href) {
+    let Link = document.createElement('link')
+    Link.rel = 'stylesheet'
+    Link.href = href
+    let head = document.getElementsByTagName('head')[0];
+    (head || document.body).appendChild(Link)
   }
-}
-
-SdkConfig.prototype = {
-  _getUrlParams: function (ename) {
+  /** 公共方法  |  获取连接参数 **/
+  _getUrlParams (ename) {
     var url = window.location.href
     var Request = {}
     if (url.indexOf('?') != -1) {
@@ -218,9 +213,73 @@ SdkConfig.prototype = {
         ? Request[ename].split('#')[0]
         : ''
       : Request
-  },
+  }
+  /** 公共方法  |  埋点 **/
+  _marchSetsPoint (_pointId, _pointObject) {
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 ||  u.indexOf('XiaoMi') > -1; //android终端
+    /** 获取用户信息 **/
+    var userInfo = localStorage.getItem('user_Info')
+    userInfo = JSON.parse(userInfo)
+    /** 平台数据 **/
+    var _beginTime = Date.now()
+    var _channel = this.APP_CHANNEL
+    var _plateform = isAndroid ? 'android' : 'ios'
+    /** 合并参数 **/
+    var _eventContent = Object.assign({
+      residual_gold: userInfo && userInfo.amount,
+      position_id: null,
+      target_project_id: null,
+      task_id: null,
+      task_name: null,
+      marketing_id: null,
+      residual_jingdong: null,
+      residual_phone: null,
+      app_version: '1.1.1',
+      entrance: 'ddw'
+    }, _pointObject)
+    /** 要发送的数据 **/
+    var sendMessage = {
+      plateform: 'h5',
+      version: '1.0.0',
+      channel: _channel,
+      subplateform: _plateform,
+      useragent: window.navigator.userAgent,
+      logs: [
+        {
+          uid: userInfo && userInfo.userId,
+          begintime: _beginTime,
+          eventid: _pointId,
+          eventcontent: _eventContent
+        }
+      ]
+    }
+    /** 创建formDate 对象 并把数据插入formDate **/
+    var formData = new FormData()
+    formData.append('appName', 'wf_game')
+    formData.append('json', JSON.stringify(sendMessage))
+    var xhr = new XMLHttpRequest
+    var xhr=new XMLHttpRequest()
+    xhr.open('POST', 'https://log-center.beeplaying.com/am/log/v1/json', false)
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*"); 
+    xhr.send(formData);
+  }
+  /** 公共方法  |  获取游戏gameType **/
+  _getGameType () {
+    var pathname = location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
+    var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
+    return gametype
+  }
+}
+
+/** 平台SDK **/
+class SdkFun extends SdkConfig {
+  constructor() {
+    super()
+    this.editIcon()
+  }
   /** 获取游戏返回地址 **/
-  getBackUrl: function (channel, gametype, bisbag) {
+  getBackUrl (channel, gametype, bisbag) {
     var app_channel = this.APP_CHANNEL || channel
     var id = String(app_channel)
     /** 好看底bar 返回 **/
@@ -256,16 +315,9 @@ SdkConfig.prototype = {
         (bisbag ? '&skip=bag' : '')
     }
     return str
-  },
-  /** 获取游戏type **/
-  getGameType () {
-    var pathname =
-      location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
-    var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
-    return gametype
-  },
+  }
   /** 获取排行榜地址 **/
-  getRankingUrl: function () {
+  getRankingUrl () {
     return (
       this.HOST +
       '/jsWap/#/popGame?channel=' +
@@ -279,8 +331,9 @@ SdkConfig.prototype = {
     // }else {
     //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
     // }
-  },
-  getUseLandscape: function () {
+  }
+  /** 获取横屏地址 **/
+  getUseLandscape () {
     let useLandscape = false
     try {
       let screenOrientation = parent.document.querySelector(
@@ -314,9 +367,9 @@ SdkConfig.prototype = {
       useLandscape = false
     }
     return useLandscape
-  },
+  }
   /** 获取支付地址 **/
-  getPaymentUrl: function () {
+  getPaymentUrl () {
     let useLandscape = this.getUseLandscape()
     localStorage.setItem('originDeffer', window.location.href)
     if (useLandscape) {
@@ -342,10 +395,10 @@ SdkConfig.prototype = {
         new Date().getTime()
       )
     }
-  },
+  }
   /** 获取SDK地址 **/
-  getTaskUrl: function () {
-    let gametype = this.getGameType()
+  getTaskUrl () {
+    let gametype = this._getGameType()
     //横屏游戏先使用深色的
     let useLandscape = this.getUseLandscape()
     return (
@@ -359,10 +412,10 @@ SdkConfig.prototype = {
       '&isLandscape=' +
       useLandscape
     )
-  },
+  }
   /** 获取奇遇任务 **/
-  getAdventureUrl: function () {
-    var gametype = this.getGameType()
+  getAdventureUrl () {
+    var gametype = this._getGameType()
     return (
       this.HOST +
       '/activities/adventure.html?channel=' +
@@ -373,9 +426,9 @@ SdkConfig.prototype = {
       this.ACCESS_TOKEN +
       '&vt=' + new Date().getTime()
     )
-  },
+  }
   /** 获取支付回调地址 **/
-  getPaymentCallbackUrl: function () {
+  getPaymentCallbackUrl () {
     var isCheckPlatOrderStatus =
       localStorage.getItem('checkPlatOrderStatus') == 'true'
     var isCheckOrderStatus = localStorage.getItem('checkOrderStatus') == 'true' // 游戏修改后还原
@@ -400,9 +453,9 @@ SdkConfig.prototype = {
         )
       }
     }
-  },
+  }
   /** 获取游客渠道 **/
-  getIsVisitorChannel: function () {
+  getIsVisitorChannel () {
     if (
       ['100039', '100042', '100047001', '100048001', '100070'].indexOf(
         this.APP_CHANNEL
@@ -412,9 +465,9 @@ SdkConfig.prototype = {
     } else {
       return false
     }
-  },
+  }
   /** 打开充值窗口 **/
-  charge: function (order) {
+  charge (order) {
     if (!order) {
       return false
     }
@@ -428,9 +481,9 @@ SdkConfig.prototype = {
     } catch (e) {
       console.log('charge openweb error')
     }
-  },
+  }
   /** 打开充值回调 **/
-  chargeCallBack: function () {
+  chargeCallBack () {
     var isCheckPlatOrderStatus = localStorage.getItem('checkPlatOrderStatus') === 'true'
     localStorage.setItem('originDeffer', window.location.href)
     if (isCheckPlatOrderStatus) {
@@ -442,17 +495,29 @@ SdkConfig.prototype = {
         console.log('chargeCallBack openweb error')
       }
     }
-  },
+  }
   /** 获取平台盈利榜地址 **/
-  getPlantRankingUrl: function () {
+  getPlantRankingUrl () {
     return `${this.HOST}/xmWap/#/profitlist/?channel=${this.APP_CHANNEL}&from=game`
-  },
+  }
   /** 获取平台客服地址 **/
-  getPlantServices: function () {
+  getPlantServices () {
     return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
-  },
+  }
+  /** 100061 渠道修改titile 图标**/
+  editIcon () {
+    if (this.APP_CHANNEL == 100061) {
+      try {
+        var link = document.createElement('link')
+        link.rel = 'apple-touch-icon'
+        link.sizes = '114*114'
+        link.href = 'https://wap.beeplaying.com/xmWap/img/icon_ddw.png'
+        document.getElementsByTagName('head')[0].appendChild(link)
+      } catch (e) { }
+    }
+  }
   //充值100081
-  charge100081: function (order) {
+  charge100081 (order) {
     wifikey.pay({
       orderInfo: {
         tpOrderId: order
@@ -472,9 +537,9 @@ SdkConfig.prototype = {
         }
       }
     })
-  },
+  }
   // 获取活动icon
-  getActivitiesIcon: function (activityName) {
+  getActivitiesIcon (activityName) {
     switch (activityName) {
       case 'yiyuanchou':
         return 'https://file.beeplaying.com/group1/M00/42/26/CmcEHV3t5suAJBnkAAAaLg3vpNI734.png'
@@ -482,9 +547,9 @@ SdkConfig.prototype = {
       default:
         break
     }
-  },
+  }
   // 打开猫活动
-  openActivityPop: function (activityName) {
+  openActivityPop (activityName) {
     let url = ""
     switch (activityName) {
       // 猫新年活动
@@ -502,16 +567,24 @@ SdkConfig.prototype = {
     } catch (e) {
       console.log('openActivityPop openweb error')
     }
-  },
+  }
+}
+
+/** 微信分享 **/
+class WechatShare extends SdkConfig {
+  constructor() {
+    super()
+    this.wechatShareInit()
+  }
   // 微信分享 加载jsSDK
-  loadJs: function () {
+  loadJs () {
     const url = '//res2.wx.qq.com/open/js/jweixin-1.6.0.js'
-    this.loadScripts([url], () => {
+    this._loadScripts([url], () => {
       this.getShareMessage()
     })
-  },
+  }
   // 微信分享 获取自定义分享内容
-  getShareMessage: function () {
+  getShareMessage () {
     let xhr = new XMLHttpRequest()
     let url = `//platform-api.beeplaying.com/wap/api/oauth/wx/share/${this.APP_CHANNEL}/platformShare`
     xhr.open('POST', url, true)
@@ -529,15 +602,169 @@ SdkConfig.prototype = {
       }
     }
     xhr.send()
-  },
+  }
   // 微信分享初始化
-  wechatShareInit: function () {
+  wechatShareInit () {
     if (['110002001', '110002002', '110002007', '100093'].indexOf(this.APP_CHANNEL) > -1) {
       this.loadJs()
     }
   }
 }
-window.SDK = new SdkConfig()
 
-window.SDK.wechatShareInit()
+/** 退出拦截 **/
+class RetunBack extends SdkConfig {
+  constructor () {
+    super()
+    this.init()
+  }
+  /** 创建挽留弹框 **/
+  createPopup () {
+    require('./backpopup/style.css')
+    let item1 = require('./backpopup/item1.png').default
+    let item2 = require('./backpopup/item2.png').default
+    let item3 = require('./backpopup/item3.png').default
+    let my = require('./backpopup/my.png').default
+    let gameEntry = require('./backpopup/game-entry.png').default
+    let popup = document.createElement('div')
+    popup.className = 'linkurl-backPopup'
+    let html = `
+      <div class="mask"></div>
+      <div class="popup-wrap">
+        <div class="title">猜你喜欢</div>
+        <div class="gameList">
+          <div class="item"><img src="${item1}"><p>糖果萌消消</p></div>
+          <div class="item"><img src="${item2}"><p>狂热斗地主</p></div>
+          <div class="item"><img src="${item3}"><p>三国大作战</p></div>
+        </div>
+        <div class="next">
+          <div class="title">下次这样找到我</div>
+          <div class="next-wrap">
+            <div class="item"><img src="${my}"><p>第一步</p><p>点击“我的”</p></div>
+            <div class="item"><img src="${gameEntry}"><p>第二步</p><p>点击“游戏大厅”</p>
+          </div>
+        </div>
+        <div class="btns">
+          <div class="item cancel">忍痛退出</div>
+          <div class="item more">玩更多游戏</div>
+        </div>
+        <div class="close"></div>
+      </div>
+    `
+    popup.innerHTML = html
+    if(document.querySelector('.linkurl-backPopup')) {
+      return false
+    }
+    document.body.appendChild(popup)
+    this.setFontsize()
+    this.bindClick()
+  }
+  /** 设置fontsize **/
+  setFontsize () {
+    const baseSize = 30
+    let baseWidth = 720
+    function setRem () {
+      const scale = document.documentElement.clientWidth / baseWidth
+      document.querySelector('.linkurl-backPopup').style.fontSize = baseSize * scale + 'px'
+    }
+    setRem()
+    window.onresize = function () {
+      setRem()
+    }
+  }
+  /** 挂载click事件 **/
+  bindClick () {
+    let url = [
+      `//wap.beeplaying.com/crush/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
+      `//wap.beeplaying.com/landlord/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
+      `//wap.beeplaying.com/kingdom2/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
+    ]
+    let close = document.querySelector('.linkurl-backPopup .close')
+    let cancel = document.querySelector('.linkurl-backPopup .cancel')
+    let more = document.querySelector('.linkurl-backPopup .more')
+    let games = document.querySelectorAll('.linkurl-backPopup .gameList .item')
+    close.onclick = () => { 
+      this.remocePopup()
+      this._marchSetsPoint('A_H5PT0019003651', {
+        target_project_id: this._getGameType()
+      })
+    }
+    more.onclick = () => {
+      this.remocePopup()
+      this.gotoIndex() 
+      this._marchSetsPoint('A_H5PT0019003650', {
+        target_project_id: this._getGameType()
+      })
+    }
+    cancel.onclick = () => { 
+      this.remocePopup()
+      this.closeWebView()
+      this._marchSetsPoint('A_H5PT0019003649', {
+        target_project_id: this._getGameType()
+      })
+    }
+    for(let i in games) {
+      games[i].onclick = () => {
+        this.remocePopup()
+        window.location.href = url[i]
+      }
+    }
+  }
+  /** 删除弹框 **/
+  remocePopup () {
+    let popup = document.querySelector('.linkurl-backPopup')
+    popup && popup.parentNode.removeChild(popup)
+  }
+  /** 前往首页 **/
+  gotoIndex () {
+    window.location.href = `https://wap.beeplaying.com/xmWap/#/?channel=${this.APP_CHANNEL}`
+  }
+  /** 关闭webwiew **/
+  closeWebView () {
+    window.location.href = 'baiduhaokan://action/goback'
+  }
+  /** 创建百度好看退出回调钩子 **/
+  createHaokanBack () {
+    let bdminObj = 'backHandler'
+    let scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj)
+    let iframe = document.createElement('iframe')
+    iframe.style.display = 'none'
+    iframe.src = scheme
+    document.body.appendChild(iframe)
+    setTimeout(function () {
+      iframe.remove()
+    }, 1000)
+    /** window对象挂载百度好看回调方法 **/
+    window.backHandler = () => {
+      this.createPopup()
+      this._marchSetsPoint('A_H5PT0019003648', {
+        target_project_id: this._getGameType()
+      })
+      let endTime = new Date(new Date().toLocaleDateString()).getTime()
+      localStorage.setItem('linkurl-backPopup', `${endTime}`)
+    }
+  }
 
+  init () {
+    let endTime = new Date(new Date().toLocaleDateString()).getTime()
+    let cacheTime = localStorage.getItem('linkurl-backPopup')
+    /** 假如缓存时间小于当前时间, 打开弹框更新缓存**/
+    if(this.APP_CHANNEL == '100039') {
+      if (cacheTime) {
+        if(endTime != cacheTime){
+          this.createHaokanBack()
+        }
+      } else {
+        this.createHaokanBack()
+      }
+    }
+  }
+}
+
+/** 实例化SDK **/
+window.SDK = new SdkFun()
+
+/** 实例化微信分享 **/
+new WechatShare()
+
+/** 实例化退出拦截 **/
+new RetunBack()
