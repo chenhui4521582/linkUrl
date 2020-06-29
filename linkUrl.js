@@ -127,13 +127,15 @@ window.linkUrl.getYKChannel = function (channel) {
 }
 
 class SdkConfig {
-  constructor () {
+  constructor() {
     this.HOST = '//wap.beeplaying.com'
     this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
     this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
     this.CHANNEL_CONFIG = window.linkUrl.url
     this.GAMETYPE = {
       billiards: 2,
+      'billiardsgame.html': 2,
+      'billiardsindex.html': 2,
       ball: 2,
       ring: 3,
       ring2: 3,
@@ -151,6 +153,7 @@ class SdkConfig {
       bird: 26,
       crush3: 27,
       xiyou: 29,
+      boom: 30,
       ttfjdz: 105,
       hitmouse: 106,
       default: 0
@@ -216,8 +219,8 @@ class SdkConfig {
   }
   /** 公共方法  |  埋点 **/
   _marchSetsPoint (_pointId, _pointObject) {
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 ||  u.indexOf('XiaoMi') > -1; //android终端
+    var u = navigator.userAgent
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 || u.indexOf('XiaoMi') > -1 //android终端
     /** 获取用户信息 **/
     var userInfo = localStorage.getItem('user_Info')
     userInfo = JSON.parse(userInfo)
@@ -259,10 +262,10 @@ class SdkConfig {
     formData.append('appName', 'wf_game')
     formData.append('json', JSON.stringify(sendMessage))
     var xhr = new XMLHttpRequest
-    var xhr=new XMLHttpRequest()
+    var xhr = new XMLHttpRequest()
     xhr.open('POST', 'https://log-center.beeplaying.com/am/log/v1/json', false)
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "*"); 
-    xhr.send(formData);
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+    xhr.send(formData)
   }
   /** 公共方法  |  获取游戏gameType **/
   _getGameType () {
@@ -613,7 +616,7 @@ class WechatShare extends SdkConfig {
 
 /** 退出拦截 **/
 class RetunBack extends SdkConfig {
-  constructor () {
+  constructor() {
     super()
     this.init()
   }
@@ -651,7 +654,7 @@ class RetunBack extends SdkConfig {
       </div>
     `
     popup.innerHTML = html
-    if(document.querySelector('.linkurl-backPopup')) {
+    if (document.querySelector('.linkurl-backPopup')) {
       return false
     }
     document.body.appendChild(popup)
@@ -682,7 +685,7 @@ class RetunBack extends SdkConfig {
     let cancel = document.querySelector('.linkurl-backPopup .cancel')
     let more = document.querySelector('.linkurl-backPopup .more')
     let games = document.querySelectorAll('.linkurl-backPopup .gameList .item')
-    close.onclick = () => { 
+    close.onclick = () => {
       this.remocePopup()
       this._marchSetsPoint('A_H5PT0019003651', {
         target_project_id: this._getGameType()
@@ -690,19 +693,19 @@ class RetunBack extends SdkConfig {
     }
     more.onclick = () => {
       this.remocePopup()
-      this.gotoIndex() 
+      this.gotoIndex()
       this._marchSetsPoint('A_H5PT0019003650', {
         target_project_id: this._getGameType()
       })
     }
-    cancel.onclick = () => { 
+    cancel.onclick = () => {
       this.remocePopup()
       this.closeWebView()
       this._marchSetsPoint('A_H5PT0019003649', {
         target_project_id: this._getGameType()
       })
     }
-    for(let i in games) {
+    for (let i in games) {
       games[i].onclick = () => {
         this.remocePopup()
         window.location.href = url[i]
@@ -748,9 +751,9 @@ class RetunBack extends SdkConfig {
     let endTime = new Date(new Date().toLocaleDateString()).getTime()
     let cacheTime = localStorage.getItem('linkurl-backPopup')
     /** 假如缓存时间小于当前时间, 打开弹框更新缓存**/
-    if(this.APP_CHANNEL == '100039') {
+    if (this.APP_CHANNEL == '100039') {
       if (cacheTime) {
-        if(endTime != cacheTime){
+        if (endTime != cacheTime) {
           this.createHaokanBack()
         }
       } else {
