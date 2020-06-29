@@ -272,7 +272,7 @@ class SdkConfig {
     var pathname = location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
-  },
+  }
   getGameType () {
     var pathname = location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
