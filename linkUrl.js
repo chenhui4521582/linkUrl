@@ -129,8 +129,8 @@ window.linkUrl.getYKChannel = function (channel) {
 class SdkConfig {
   constructor () {
     this.HOST = '//wap.beeplaying.com'
-    this.APP_CHANNEL = this._getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
-    this.ACCESS_TOKEN = this._getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
+    this.APP_CHANNEL = this.getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
+    this.ACCESS_TOKEN = this.getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
     this.CHANNEL_CONFIG = window.linkUrl.url
     this.GAMETYPE = {
       billiards: 2,
@@ -157,7 +157,7 @@ class SdkConfig {
     }
   }
   /** 公共方法  |  动态引入js **/
-  _loadScripts (urls, callback) {
+  loadScripts (urls, callback) {
     callback = callback || function () { }
     // 添加script属性，并添加到head中
     let loader = function (src, handler) {
@@ -190,7 +190,7 @@ class SdkConfig {
     })()
   }
   /** 公共方法  |  动态引入css **/
-  _loadCSS (href) {
+  loadCSS (href) {
     let Link = document.createElement('link')
     Link.rel = 'stylesheet'
     Link.href = href
@@ -198,7 +198,7 @@ class SdkConfig {
     (head || document.body).appendChild(Link)
   }
   /** 公共方法  |  获取连接参数 **/
-  _getUrlParams (ename) {
+  getUrlParams (ename) {
     var url = window.location.href
     var Request = {}
     if (url.indexOf('?') != -1) {
@@ -215,7 +215,7 @@ class SdkConfig {
       : Request
   }
   /** 公共方法  |  埋点 **/
-  _marchSetsPoint (_pointId, _pointObject) {
+  marchSetsPoint (_pointId, _pointObject) {
     var u = navigator.userAgent;
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 ||  u.indexOf('XiaoMi') > -1; //android终端
     /** 获取用户信息 **/
@@ -265,7 +265,7 @@ class SdkConfig {
     xhr.send(formData);
   }
   /** 公共方法  |  获取游戏gameType **/
-  _getGameType () {
+  getGameType () {
     var pathname = location.pathname && location.pathname.replace(/\//g, '').toLowerCase()
     var gametype = this.GAMETYPE[pathname] || this.GAMETYPE['default']
     return gametype
@@ -398,7 +398,7 @@ class SdkFun extends SdkConfig {
   }
   /** 获取SDK地址 **/
   getTaskUrl () {
-    let gametype = this._getGameType()
+    let gametype = this.getGameType()
     //横屏游戏先使用深色的
     let useLandscape = this.getUseLandscape()
     return (
@@ -415,7 +415,7 @@ class SdkFun extends SdkConfig {
   }
   /** 获取奇遇任务 **/
   getAdventureUrl () {
-    var gametype = this._getGameType()
+    var gametype = this.getGameType()
     return (
       this.HOST +
       '/activities/adventure.html?channel=' +
@@ -579,7 +579,7 @@ class WechatShare extends SdkConfig {
   // 微信分享 加载jsSDK
   loadJs () {
     const url = '//res2.wx.qq.com/open/js/jweixin-1.6.0.js'
-    this._loadScripts([url], () => {
+    this.loadScripts([url], () => {
       this.getShareMessage()
     })
   }
@@ -684,22 +684,22 @@ class RetunBack extends SdkConfig {
     let games = document.querySelectorAll('.linkurl-backPopup .gameList .item')
     close.onclick = () => { 
       this.remocePopup()
-      this._marchSetsPoint('A_H5PT0019003651', {
-        target_project_id: this._getGameType()
+      this.marchSetsPoint('A_H5PT0019003651', {
+        target_project_id: this.getGameType()
       })
     }
     more.onclick = () => {
       this.remocePopup()
       this.gotoIndex() 
-      this._marchSetsPoint('A_H5PT0019003650', {
-        target_project_id: this._getGameType()
+      this.marchSetsPoint('A_H5PT0019003650', {
+        target_project_id: this.getGameType()
       })
     }
     cancel.onclick = () => { 
       this.remocePopup()
       this.closeWebView()
-      this._marchSetsPoint('A_H5PT0019003649', {
-        target_project_id: this._getGameType()
+      this.marchSetsPoint('A_H5PT0019003649', {
+        target_project_id: this.getGameType()
       })
     }
     for(let i in games) {
@@ -736,8 +736,8 @@ class RetunBack extends SdkConfig {
     /** window对象挂载百度好看回调方法 **/
     window.backHandler = () => {
       this.createPopup()
-      this._marchSetsPoint('A_H5PT0019003648', {
-        target_project_id: this._getGameType()
+      this.marchSetsPoint('A_H5PT0019003648', {
+        target_project_id: this.getGameType()
       })
       let endTime = new Date(new Date().toLocaleDateString()).getTime()
       localStorage.setItem('linkurl-backPopup', `${endTime}`)
