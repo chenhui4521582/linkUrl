@@ -219,8 +219,8 @@ class SdkConfig {
   }
   /** 公共方法  |  埋点 **/
   marchSetsPoint (_pointId, _pointObject) {
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 ||  u.indexOf('XiaoMi') > -1; //android终端
+    var u = navigator.userAgent
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 || u.indexOf('XiaoMi') > -1 //android终端
     /** 获取用户信息 **/
     var userInfo = localStorage.getItem('user_Info')
     userInfo = JSON.parse(userInfo)
@@ -622,44 +622,48 @@ class RetunBack extends SdkConfig {
   }
   /** 创建挽留弹框 **/
   createPopup () {
-    require('./backpopup/style.css')
-    let item1 = require('./backpopup/item1.png').default
-    let item2 = require('./backpopup/item2.png').default
-    let item3 = require('./backpopup/item3.png').default
-    let my = require('./backpopup/my.png').default
-    let gameEntry = require('./backpopup/game-entry.png').default
-    let popup = document.createElement('div')
-    popup.className = 'linkurl-backPopup'
-    let html = `
-      <div class="mask"></div>
-      <div class="popup-wrap">
-        <div class="title">猜你喜欢</div>
-        <div class="gameList">
-          <div class="item"><img src="${item1}"><p>糖果萌消消</p></div>
-          <div class="item"><img src="${item2}"><p>狂热斗地主</p></div>
-          <div class="item"><img src="${item3}"><p>三国大作战</p></div>
-        </div>
-        <div class="next">
-          <div class="title">下次这样找到我</div>
-          <div class="next-wrap">
-            <div class="item"><img src="${my}"><p>第一步</p><p>点击“我的”</p></div>
-            <div class="item"><img src="${gameEntry}"><p>第二步</p><p>点击“游戏大厅”</p>
+    try {
+      require('./backpopup/style.css')
+      let item1 = require('./backpopup/item1.png').default
+      let item2 = require('./backpopup/item2.png').default
+      let item3 = require('./backpopup/item3.png').default
+      let my = require(`./backpopup/my-${this.APP_CHANNEL}.png`).default
+      let gameEntry = require(`./backpopup/game-entry-${this.APP_CHANNEL}.png`).default
+      let popup = document.createElement('div')
+      popup.className = 'linkurl-backPopup'
+      let html = `
+        <div class="mask"></div>
+        <div class="popup-wrap">
+          <div class="title">猜你喜欢</div>
+          <div class="gameList">
+            <div class="item"><img src="${item1}"><p>街机欢乐捕鱼</p></div>
+            <div class="item"><img src="${item2}"><p>狂热斗地主</p></div>
+            <div class="item"><img src="${item3}"><p>三国大作战</p></div>
           </div>
+          <div class="next">
+            <div class="title">下次这样找到我</div>
+            <div class="next-wrap">
+              <div class="item"><img src="${my}"><p>第一步</p><p>点击“我的”</p></div>
+              <div class="item"><img src="${gameEntry}"><p>第二步</p><p>点击“游戏大厅”</p>
+            </div>
+          </div>
+          <div class="btns">
+            <div class="item cancel">忍痛退出</div>
+            <div class="item more">玩更多游戏</div>
+          </div>
+          <div class="close"></div>
         </div>
-        <div class="btns">
-          <div class="item cancel">忍痛退出</div>
-          <div class="item more">玩更多游戏</div>
-        </div>
-        <div class="close"></div>
-      </div>
-    `
-    popup.innerHTML = html
-    if (document.querySelector('.linkurl-backPopup')) {
-      return false
+      `
+      popup.innerHTML = html
+      if (document.querySelector('.linkurl-backPopup')) {
+        return false
+      }
+      document.body.appendChild(popup)
+      this.setFontsize()
+      this.bindClick()
+    } catch (e) {
+      alert(e)
     }
-    document.body.appendChild(popup)
-    this.setFontsize()
-    this.bindClick()
   }
   /** 设置fontsize **/
   setFontsize () {
@@ -677,7 +681,7 @@ class RetunBack extends SdkConfig {
   /** 挂载click事件 **/
   bindClick () {
     let url = [
-      `//wap.beeplaying.com/crush/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
+      `//wap.beeplaying.com/fish/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
       `//wap.beeplaying.com/landlord/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
       `//wap.beeplaying.com/kingdom2/?channel=${this.APP_CHANNEL}&time=${Date.now()}`,
     ]
@@ -693,7 +697,7 @@ class RetunBack extends SdkConfig {
     }
     more.onclick = () => {
       this.remocePopup()
-      this.gotoIndex() 
+      this.gotoIndex()
       this.marchSetsPoint('A_H5PT0019003650', {
         target_project_id: this.getGameType()
       })
@@ -723,12 +727,22 @@ class RetunBack extends SdkConfig {
   }
   /** 关闭webwiew **/
   closeWebView () {
-    window.location.href = 'baiduhaokan://action/goback'
+    if (this.APP_CHANNEL === '100039') {
+      window.location.href = 'baiduhaokan://action/goback'
+    } else if (this.APP_CHANNEL === '100042') {
+      window.location.href = 'bdminivideo://webview/close'
+    }
   }
-  /** 创建百度好看退出回调钩子 **/
-  createHaokanBack () {
+  /** 创建(百度好看/全民小视频)退出回调钩子 **/
+  createBaiDuBack () {
     let bdminObj = 'backHandler'
     let scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj)
+    if (this.APP_CHANNEL === '100042') {
+      bdminObj = {
+        "handlerName": "window.backHandler"
+      }
+      scheme = 'bdminivideo://webview/backHandler?params=' + encodeURIComponent(JSON.stringify(bdminObj))
+    }
     let iframe = document.createElement('iframe')
     iframe.style.display = 'none'
     iframe.src = scheme
@@ -746,18 +760,18 @@ class RetunBack extends SdkConfig {
       localStorage.setItem('linkurl-backPopup', `${endTime}`)
     }
   }
-
   init () {
     let endTime = new Date(new Date().toLocaleDateString()).getTime()
     let cacheTime = localStorage.getItem('linkurl-backPopup')
     /** 假如缓存时间小于当前时间, 打开弹框更新缓存**/
-    if (this.APP_CHANNEL == '100039') {
+    let channelArr = ['100039', '100042']
+    if (channelArr.includes(this.APP_CHANNEL)) {
       if (cacheTime) {
         if (endTime != cacheTime) {
-          this.createHaokanBack()
+          this.createBaiDuBack()
         }
       } else {
-        this.createHaokanBack()
+        this.createBaiDuBack()
       }
     }
   }
