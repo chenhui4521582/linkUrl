@@ -293,7 +293,7 @@ class SdkFun extends SdkConfig {
     }
     id = id.substring(0, 6)
     var str = ''
-    if (this.APP_CHANNEL == 100095 && AppCall.call('isInReviewState')) {
+    if ((this.APP_CHANNEL == 100095 || this.APP_CHANNEL == 100030004) && AppCall.call('isInReviewState')) {
       str = ''
     } else if (this.CHANNEL_CONFIG[id]) {
       if (gametype == 2) {
