@@ -1,5 +1,8 @@
 import Axios from 'axios'
-import 'babel-polyfill'
+/** 当regeneratorRuntime没有注册的时候注册babel-polyfill **/
+if(!window.regeneratorRuntime) {
+  import 'babel-polyfill'
+}
 import AppCall from './native/index'
 
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
