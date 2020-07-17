@@ -19,14 +19,12 @@ let AppCall = {
             name = arr.shift(),
             callback,
             data;
-
         // 提取回调函数
         if (arr[0] && typeof arr[arr.length - 1] === "function") {
             callback = arr.pop();
         } else {
             callback = function(response) {};
         }
-
         if (isAndroid) {
             let has = await this.has(name);
             if (has) {
@@ -72,7 +70,6 @@ let AppCall = {
         }
         return this;
     },
-
     callIOSHandler: function(name, params, callback1) {
         let i,
             obj = {};
@@ -80,18 +77,12 @@ let AppCall = {
         for (i = 0; i < params.length; i++) {
             obj["arg" + (i + 1)] = params[i];
         }
-
-        // console.log(name);
         if (isIOS && isMyNewApp) {
             setupWebViewJavascriptBridge(function(bridge) {
                 bridge.callHandler(name, obj, callback1);
             });
-
-            //log('isIOS && window.WebViewJavascriptBridge');
-            // WebViewJavascriptBridge.callHandler(name, obj, callback);
             return true;
         } else if (isIOS && window.WebViewJavascriptBridge) {
-            //log('isIOS && window.WebViewJavascriptBridge');
             WebViewJavascriptBridge.callHandler(name, obj, callback1);
             return true;
         }
@@ -113,14 +104,10 @@ function init() {
     if (!isMyNewApp) {
         if (isIOS) {
             AppCall.system = isIPhone ? "iPhone" : "iOS";
-            // 如果是ios，初始化Bridge
-            // @from  https://github.com/marcuswestin/WebViewJavascriptBridge
             if (!window.WebViewJavascriptBridge) {
                 document.addEventListener(
                     "WebViewJavascriptBridgeReady",
                     function() {
-                        //callback(WebViewJavascriptBridge)
-                        //alert('WebViewJavascriptBridgeReady');
                         // 初始化下
                         WebViewJavascriptBridge.init(function(message, responseCallback) {
                             responseCallback();
@@ -138,9 +125,6 @@ function init() {
     } else {
         if (isIOS) {
             AppCall.system = isIPhone ? "iPhone" : "iOS";
-            // 如果是ios，初始化Bridge
-            // @from  https://github.com/marcuswestin/WebViewJavascriptBridge
-
             window.setupWebViewJavascriptBridge = function(callback) {
                 if (window.WebViewJavascriptBridge) {
                     return callback(WebViewJavascriptBridge);
@@ -157,12 +141,6 @@ function init() {
                     document.documentElement.removeChild(WVJBIframe);
                 }, 0);
             };
-
-            // AppCall.callIOSHandler("getInterface", [], function(data) {
-            //     // 获取iOS支持的接口
-            //     iOSInterface = JSON.parse(data);
-            //     // AppCall.alert(JSON.parse(data));
-            // });
             getIOSInterface();
         } else if (isAndroid) {
             AppCall.system = "Android";

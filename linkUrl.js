@@ -801,7 +801,7 @@ class DDW_Share extends SdkConfig {
           Axios.post(copyUrl, {
             tToken: response.data.data.accessToken,
             sign: sign
-          })
+          },{headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
           AppCall.clearClipboardContent()
         }
       } catch (e) {}
@@ -816,7 +816,7 @@ class DDW_Share extends SdkConfig {
         alert(currentUserID)
         if(userId) {
           let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
-          Axios.post(url)
+          Axios.post(url,{headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
           await AppCall.clearClipboardContent()
         }
       } catch (e) {}
