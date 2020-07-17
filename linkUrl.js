@@ -813,11 +813,11 @@ class DDW_Share extends SdkConfig {
         let currentUserInfo = localStorage.getItem('user_Info')
         let currentUserID = currentUserInfo && JSON.parse(currentUserInfo).userId
         alert(userId)
+        alert(currentUserID)
         if(userId) {
           let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
           Axios.post(url)
-          let clearClipboardContent = await AppCall.clearClipboardContent()
-          alert(clearClipboardContent)
+          await AppCall.clearClipboardContent()
         }
       } catch (e) {}
     }
