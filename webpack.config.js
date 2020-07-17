@@ -4,8 +4,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports={
     mode: 'production',
     entry: {
-      linkUrl:'./linkUrl.js',
-      server:'./server.js'
+      linkUrl: './linkUrl.js',
+      server: './server.js'
     },
     output:{
         filename:'./[name].js'
@@ -18,7 +18,8 @@ module.exports={
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
+              presets: ['@babel/preset-env'],
+              plugins:['@babel/plugin-transform-runtime']
             }
           }
         },
