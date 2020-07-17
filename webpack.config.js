@@ -3,9 +3,9 @@ var path = require('path')
 const TerserPlugin = require('terser-webpack-plugin');
 module.exports={
     mode: 'production',
-    entry:{
+    entry: {
       linkUrl:'./linkUrl.js',
-        server:'./server.js'
+      server:'./server.js'
     },
     output:{
         filename:'./[name].js'

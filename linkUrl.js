@@ -1,6 +1,6 @@
 import Axios from 'axios'
+import 'babel-polyfill'
 import AppCall from './native/index'
-import clipboard from 'clipboard'
 
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
   var time2 = new Date().getTime()
@@ -129,7 +129,6 @@ window.linkUrl.getYKChannel = function (channel) {
     channel == '100068'
   )
 }
-
 class SdkConfig {
   constructor() {
     this.HOST = '//wap.beeplaying.com'
@@ -801,7 +800,7 @@ class DDW_Share extends SdkConfig {
           Axios.post(copyUrl, {
             tToken: response.data.data.accessToken,
             sign: sign
-          },{headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+          }, {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
           AppCall.clearClipboardContent()
         }
       } catch (e) {}
@@ -816,7 +815,7 @@ class DDW_Share extends SdkConfig {
         alert(currentUserID)
         if(userId) {
           let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
-          Axios.post(url,{headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+          Axios.post(url,'', {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
           await AppCall.clearClipboardContent()
         }
       } catch (e) {}
