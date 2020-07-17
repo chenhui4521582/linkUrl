@@ -1,3 +1,7 @@
+import Axios from 'axios'
+import AppCall from './native/index'
+import clipboard from 'clipboard'
+
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
   var time2 = new Date().getTime()
   var script2 = document.createElement('script')
@@ -777,6 +781,49 @@ class RetunBack extends SdkConfig {
   }
 }
 
+/** 分享出来下载多多完APP后获取粘贴板内容 **/
+class DDW_Share extends SdkConfig {
+  constructor () {
+    super()
+    this.init()
+  }
+  /** 清除粘贴板内容 **/
+  async init () {
+    /** 获取粘贴板数据 **/
+    let copy = await AppCall.getClipboardContent()
+    const from = copy && copy.split('&')[0].replace('from=', '')
+    /** 积分墙把数据传给后端 **/
+    if(from == 'earnCoin') {
+      try {
+        const copyUrl = copy.split('&')[2].replace('redirect_uri=', '')
+        const sign = copy.split('&')[1].replace('sign=', '')
+        if(copyUrl && sign) {
+          Axios.post(copyUrl, {
+            tToken: response.data.data.accessToken,
+            sign: sign
+          })
+          AppCall.clearClipboardContent()
+        }
+      } catch (e) {}
+    }
+    /** 裂变活动把数据传给后端 **/
+    if(from == 'fission') {
+      try {
+        const userId = copy.split('&')[1].replace('userId=', '')
+        let currentUserInfo = localStorage.getItem('user_Info')
+        let currentUserID = currentUserInfo && JSON.parse(currentUserInfo).userId
+        alert(userId)
+        if(userId) {
+          let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
+          Axios.post(url)
+          let clearClipboardContent = await AppCall.clearClipboardContent()
+          alert(clearClipboardContent)
+        }
+      } catch (e) {}
+    }
+  }
+}
+
 /** 实例化SDK **/
 window.SDK = new SdkFun()
 
@@ -785,3 +832,6 @@ new WechatShare()
 
 /** 实例化退出拦截 **/
 new RetunBack()
+
+/** 实例化分享出来下载多多完APP后获取粘贴板内容 **/
+new DDW_Share()
