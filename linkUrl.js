@@ -817,7 +817,7 @@ class DDW_Share extends SdkConfig {
           if(userId && currentUserID) {
             let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
             Axios.post(url,'', {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
-            await AppCall.clearClipboardContent()
+            AppCall.clearClipboardContent()
           }
         }, 2000)
       } catch (e) {}
