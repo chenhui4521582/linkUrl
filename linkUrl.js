@@ -808,16 +808,18 @@ class DDW_Share extends SdkConfig {
     /** 裂变活动把数据传给后端 **/
     if(from == 'fission') {
       try {
-        const userId = copy.split('&')[1].replace('userId=', '')
-        let currentUserInfo = localStorage.getItem('user_Info')
-        let currentUserID = currentUserInfo && JSON.parse(currentUserInfo).userId
-        alert(userId)
-        alert(currentUserID)
-        if(userId) {
-          let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
-          Axios.post(url,'', {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
-          await AppCall.clearClipboardContent()
-        }
+        setTimeout(() => {
+          const userId = copy.split('&')[1].replace('userId=', '')
+          let currentUserInfo = localStorage.getItem('user_Info')
+          let currentUserID = currentUserInfo && JSON.parse(currentUserInfo).userId
+          alert(userId)
+          alert(currentUserID)
+          if(userId && currentUserID) {
+            let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
+            Axios.post(url,'', {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+            await AppCall.clearClipboardContent()
+          }
+        }, 2000)
       } catch (e) {}
     }
   }
