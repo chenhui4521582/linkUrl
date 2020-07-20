@@ -146,8 +146,6 @@ function init() {
             AppCall.system = "Android";
         }
     }
-
-    window.AppCall = AppCall;
 }
 init();
 
