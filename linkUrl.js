@@ -664,7 +664,6 @@ class RetunBack extends SdkConfig {
       this.setFontsize()
       this.bindClick()
     } catch (e) {
-      alert(e)
     }
   }
   /** 设置fontsize **/
