@@ -133,6 +133,10 @@ class SdkConfig {
     this.HOST = '//wap.beeplaying.com'
     this.APP_CHANNEL = this.getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
     this.ACCESS_TOKEN = this.getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
+    this.OPEN_ACCESS_TOKEN = this.getUrlParams('openToken') || ''
+    if (this.OPEN_ACCESS_TOKEN && !localStorage.getItem('OPEN_ACCESS_TOKEN')) {
+      localStorage.setItem('OPEN_ACCESS_TOKEN', this.OPEN_ACCESS_TOKEN)
+    }
     this.CHANNEL_CONFIG = window.linkUrl.url
     this.GAMETYPE = {
       billiards: 2,
@@ -780,7 +784,7 @@ class RetunBack extends SdkConfig {
 
 /** 分享出来下载多多完APP后获取粘贴板内容 **/
 class DDW_Share extends SdkConfig {
-  constructor () {
+  constructor() {
     super()
     this.init()
   }
@@ -790,33 +794,33 @@ class DDW_Share extends SdkConfig {
     let copy = await AppCall.getClipboardContent()
     const from = copy && copy.split('&')[0].replace('from=', '')
     /** 积分墙把数据传给后端 **/
-    if(from == 'earnCoin') {
+    if (from == 'earnCoin') {
       try {
         const copyUrl = copy.split('&')[2].replace('redirect_uri=', '')
         const sign = copy.split('&')[1].replace('sign=', '')
-        if(copyUrl && sign) {
+        if (copyUrl && sign) {
           Axios.post(copyUrl, {
             tToken: response.data.data.accessToken,
             sign: sign
-          }, {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+          }, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
           AppCall.clearClipboardContent()
         }
-      } catch (e) {}
+      } catch (e) { }
     }
     /** 裂变活动把数据传给后端 **/
-    if(from == 'fission') {
+    if (from == 'fission') {
       try {
         setTimeout(() => {
           const userId = copy.split('&')[1].replace('userId=', '')
           let currentUserInfo = localStorage.getItem('user_Info')
           let currentUserID = currentUserInfo && JSON.parse(currentUserInfo).userId
-          if(userId && currentUserID) {
+          if (userId && currentUserID) {
             let url = `//ops-api.beeplaying.com/ops/fission/invite/${userId}_${currentUserID}`
-            Axios.post(url,'', {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+            Axios.post(url, '', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
             AppCall.clearClipboardContent()
           }
         }, 2000)
-      } catch (e) {}
+      } catch (e) { }
     }
   }
 }
