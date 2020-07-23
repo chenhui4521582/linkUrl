@@ -9,6 +9,14 @@ if (localStorage.getItem('APP_CHANNEL') == 100081) {
     'https://a.lianwifi.com/miniapp/wifikey-bridge/1.0.1/index.js?time=' + time2
   document.head.appendChild(script2)
 }
+else if (localStorage.getItem('APP_CHANNEL') == 100100) {
+  var script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.src =
+    'https://res.wx.qq.com/open/js/jweixin-1.4.0.js'
+  document.head.appendChild(script)
+}
+
 window.linkUrl = {
   url: {
     '100032': '/yunqingWap/',
