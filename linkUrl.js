@@ -802,16 +802,18 @@ class DDW_Share extends SdkConfig {
     /** 积分墙把数据传给后端 **/
     if (from == 'earnCoin') {
       try {
-        const copyUrl = copy.split('&')[2].replace('redirect_uri=', '')
-        const sign = copy.split('&')[1].replace('sign=', '')
-        if (copyUrl && sign) {
-          Axios.post(copyUrl, {
-            tToken: response.data.data.accessToken,
-            sign: sign
-          }, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
-          AppCall.clearClipboardContent()
-        }
-      } catch (e) { }
+        setTimeout(() => {
+          const copyUrl = copy.split('&')[2].replace('redirect_uri=', '')
+          const sign = copy.split('&')[1].replace('sign=', '')
+          if(copyUrl && sign) {
+            Axios.post(copyUrl, {
+              tToken: this.ACCESS_TOKEN,
+              sign: sign
+            }, {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+            AppCall.clearClipboardContent()
+          }
+        }, 2000)
+      } catch (e) {}
     }
     /** 裂变活动把数据传给后端 **/
     if (from == 'fission') {
