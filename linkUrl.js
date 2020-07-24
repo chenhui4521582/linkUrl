@@ -134,14 +134,17 @@ class SdkConfig {
     this.APP_CHANNEL = this.getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
     this.ACCESS_TOKEN = this.getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
     this.OPEN_ACCESS_TOKEN = this.getUrlParams('openToken') || localStorage.getItem('OPEN_ACCESS_TOKEN') || ''
-    if (this.APP_CHANNEL) {
-      localStorage.setItem('APP_CHANNEL', this.APP_CHANNEL)
-    }
-    if (this.ACCESS_TOKEN) {
-      localStorage.setItem('ACCESS_TOKEN', this.ACCESS_TOKEN)
-    }
-    if (this.OPEN_ACCESS_TOKEN) {
-      localStorage.setItem('OPEN_ACCESS_TOKEN', this.OPEN_ACCESS_TOKEN)
+    this.IS_MY_PLAT = window.location.host === 'wap.beeplaying.com'
+    if (this.IS_MY_PLAT && this.APP_CHANNEL === '100101') {
+      if (this.APP_CHANNEL) {
+        localStorage.setItem('APP_CHANNEL', this.APP_CHANNEL)
+      }
+      if (this.ACCESS_TOKEN) {
+        localStorage.setItem('ACCESS_TOKEN', this.ACCESS_TOKEN)
+      }
+      if (this.OPEN_ACCESS_TOKEN) {
+        localStorage.setItem('OPEN_ACCESS_TOKEN', this.OPEN_ACCESS_TOKEN)
+      }
     }
     this.CHANNEL_CONFIG = window.linkUrl.url
     this.GAMETYPE = {
