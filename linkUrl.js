@@ -530,6 +530,10 @@ class SdkFun extends SdkConfig {
   getPlantServices () {
     return `${this.HOST}/xmWap/#/my/customerService?channel=${this.APP_CHANNEL}`
   }
+  /** 获取平台 我的 地址 **/
+  getPlatMyUrl () {
+    return `${this.HOST}/xmWap/#/my/?channel=${this.APP_CHANNEL}&from=game`
+  }
   /** 100061 渠道修改titile 图标**/
   editIcon () {
     if (this.APP_CHANNEL == 100061) {
@@ -816,15 +820,15 @@ class DDW_Share extends SdkConfig {
         setTimeout(() => {
           const copyUrl = copy.split('&')[2].replace('redirect_uri=', '')
           const sign = copy.split('&')[1].replace('sign=', '')
-          if(copyUrl && sign) {
+          if (copyUrl && sign) {
             Axios.post(copyUrl, {
               tToken: this.ACCESS_TOKEN,
               sign: sign
-            }, {headers: {'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL}})
+            }, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
             AppCall.clearClipboardContent()
           }
         }, 2000)
-      } catch (e) {}
+      } catch (e) { }
     }
     /** 裂变活动把数据传给后端 **/
     if (from == 'fission') {
