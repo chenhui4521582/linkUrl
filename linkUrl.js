@@ -140,7 +140,7 @@ class SdkConfig {
   constructor() {
     this.HOST = '//wap.beeplaying.com'
     this.APP_CHANNEL = this.getUrlParams('channel') || localStorage.getItem('APP_CHANNEL') || '100001'
-    this.ACCESS_TOKEN = this.getUrlParams('token') || localStorage.getItem('ACCESS_TOKEN') || ''
+    this.ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN') || this.getUrlParams('token') || ''
     this.OPEN_ACCESS_TOKEN = this.getUrlParams('openToken') || localStorage.getItem('OPEN_ACCESS_TOKEN') || ''
     this.IS_MY_PLAT = window.location.host === 'wap.beeplaying.com'
     if (this.IS_MY_PLAT && this.APP_CHANNEL === '100101') {
