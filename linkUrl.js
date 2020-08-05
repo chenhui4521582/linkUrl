@@ -848,6 +848,29 @@ class DDW_Share extends SdkConfig {
   }
 }
 
+/** 积分墙项目，监听游戏时长 **/
+class ListennerGameTime extends SdkConfig {
+  constructor () {
+    super()
+    this.init()
+  }
+  init () {
+    if(this.getUrlParams('duration')) {
+      this.send('first')
+      setInterval( () => {
+        this.send()
+      }, 10000)
+    }
+  }
+  send (first) {
+    let url = '//platform-api.beeplaying.com/point/api/task/duration'
+    Axios.post(url, {
+      "first": first ? true : false,
+      "gameId": this.getGameType()
+    },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
+  }
+}
+
 /** 实例化SDK **/
 window.SDK = new SdkFun()
 
@@ -859,3 +882,6 @@ new RetunBack()
 
 /** 实例化分享出来下载多多完APP后获取粘贴板内容 **/
 new DDW_Share()
+
+/** 实例积分墙项目，监听游戏时长 **/
+new ListennerGameTime()
