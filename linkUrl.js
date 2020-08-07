@@ -855,8 +855,9 @@ class ListennerGameTime extends SdkConfig {
     this.init()
   }
   init () {
-    if(this.getUrlParams('duration')) {
+    if(localStorage.getItem('earnCoinDuration')) {
       this.send('first')
+      localStorage.removeItem('earnCoinDuration')
       setInterval( () => {
         this.send()
       }, 10000)
