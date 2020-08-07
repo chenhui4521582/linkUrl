@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import AppCall from './native/index'
-
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
   var time2 = new Date().getTime()
   var script2 = document.createElement('script')
@@ -855,20 +854,26 @@ class ListennerGameTime extends SdkConfig {
     this.init()
   }
   init () {
+    let href = location.href
+    /** 不是在H5游戏内调用 **/
+    if(href.indexOf('/sdk/task') == -1) {
+      localStorage.removeItem('earnCoinDuration')
+      return 
+    }
     if(localStorage.getItem('earnCoinDuration')) {
       this.send('first')
-      setInterval( () => {
-        this.send()
-      }, 10000)
-      localStorage.removeItem('earnCoinDuration')
     }
   }
   send (first) {
+    let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
     let url = '//platform-api.beeplaying.com/point/api/task/duration'
     Axios.post(url, {
       "first": first ? true : false,
-      "gameId": this.getGameType()
+      "gameId": gameId
     },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
+    setTimeout(() => {
+      this.send()
+    }, 10000)
   }
 }
 
