@@ -1,5 +1,7 @@
 import Axios from 'axios'
 import AppCall from './native/index'
+import V from 'vconsole'
+new V()
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
   var time2 = new Date().getTime()
   var script2 = document.createElement('script')
@@ -864,13 +866,20 @@ class ListennerGameTime extends SdkConfig {
       this.send('first')
     }
   }
-  send (first) {
-    let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
-    let url = '//platform-api.beeplaying.com/point/api/task/duration'
-    Axios.post(url, {
-      "first": first ? true : false,
-      "gameId": gameId
-    },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
+  async send (first) {
+    /** 在游戏内计算时长 **/
+    let checkAppIsShowInFront = await AppCall.checkAppIsShowInFront()
+    if(checkAppIsShowInFront == 'true') {
+      console.log('正在计算时长')
+      let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
+      let url = '//platform-api.beeplaying.com/point/api/task/duration'
+      Axios.post(url, {
+        "first": first ? true : false,
+        "gameId": gameId
+      },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
+    }else {
+      console.log('不在游戏内终止时长')
+    }
     setTimeout(() => {
       this.send()
     }, 10000)

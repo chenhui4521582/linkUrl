@@ -194,6 +194,9 @@ AppCall.extend({
   },
   clearClipboardContent: function() {
     return this.call('clearClipboardContent')
+  },
+  checkAppIsShowInFront: function () {
+    return this.call('checkAppIsShowInFront')
   }
 })
 
