@@ -858,7 +858,7 @@ class ListennerGameTime extends SdkConfig {
   init () {
     let href = location.href
     /** 不是在H5游戏内调用 **/
-    if(href.indexOf('/sdk/task') > -1 && this.APP_CHANNEL.indexOf('100200') > -1) {
+    if( href.indexOf('/sdk/task') > -1 && this.APP_CHANNEL.indexOf('100200') > -1 && localStorage.getItem('earnCoinDuration') ) {
       this.send('first')
     }else {
       clearTimeout(this.timer)
