@@ -1,7 +1,5 @@
 import Axios from 'axios'
 import AppCall from './native/index'
-import V from 'vconsole'
-new V()
 if (localStorage.getItem('APP_CHANNEL') == 100081) {
   var time2 = new Date().getTime()
   var script2 = document.createElement('script')
