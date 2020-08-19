@@ -857,12 +857,12 @@ class ListennerGameTime extends SdkConfig {
     let href = location.href
     /** 不是在H5游戏内调用 **/
     if( href.indexOf('/sdk/task') > -1 && this.APP_CHANNEL.indexOf('100200') > -1 && localStorage.getItem('earnCoinDuration') ) {
-      this.send('first')
+      this.send()
     }else {
       clearTimeout(this.timer)
     }
   }
-  async send (first) {
+  async send () {
     /** 在游戏内计算时长 **/
     let checkAppIsShowInFront = await AppCall.checkAppIsShowInFront()
     if(checkAppIsShowInFront == 'true') {
@@ -870,7 +870,7 @@ class ListennerGameTime extends SdkConfig {
       let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
       let url = '//platform-api.beeplaying.com/point/api/task/duration'
       Axios.post(url, {
-        "first": first ? true : false,
+        "timestamp": Date.now(),
         "gameId": gameId
       },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
     }else {

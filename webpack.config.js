@@ -42,7 +42,7 @@ module.exports={
           //uglify js
           new TerserPlugin({
             test: /\.js(\?.*)?$/i,
-          }),
+          })
         ],
     }
 }
