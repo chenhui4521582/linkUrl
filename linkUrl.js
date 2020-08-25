@@ -866,13 +866,18 @@ class ListennerGameTime extends SdkConfig {
     /** 在游戏内计算时长 **/
     let checkAppIsShowInFront = await AppCall.checkAppIsShowInFront()
     if(checkAppIsShowInFront == 'true') {
-      console.log('正在计算时长')
+      let H5_SIGN = localStorage.getItem('H5_SIGN')
       let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
       let url = '//platform-api.beeplaying.com/point/api/task/duration'
       Axios.post(url, {
-        "timestamp": Date.now(),
-        "gameId": gameId
-      },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
+        "gameId": gameId,
+        "sign": H5_SIGN
+      },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
+        const {code, data, message} = res.data
+        if(code == 200 && data) {
+          localStorage.setItem('H5_SIGN', data)
+        }
+      })
     }else {
       console.log('不在游戏内终止时长')
     }
