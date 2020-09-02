@@ -343,19 +343,7 @@ class SdkFun extends SdkConfig {
   }
   /** 获取排行榜地址 **/
   getRankingUrl () {
-    return (
-      this.HOST +
-      '/jsWap/#/popGame?channel=' +
-      this.APP_CHANNEL +
-      '&token=' +
-      this.ACCESS_TOKEN
-    )
-    // var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
-    // if(PLANT_VERSION === 'xmWap') {
-    //   return this.HOST + '/xmWap/#/profitlist?from=game'
-    // }else {
-    //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
-    // }
+    return this.HOST + '/xmWap/#/profitlist?from=game'
   }
   /** 获取横屏地址 **/
   getUseLandscape () {
@@ -849,36 +837,36 @@ class DDW_Share extends SdkConfig {
 
 /** 积分墙项目，监听游戏时长 **/
 class ListennerGameTime extends SdkConfig {
-  constructor () {
+  constructor() {
     super()
     this.init()
   }
   init () {
     let href = location.href
     /** 不是在H5游戏内调用 **/
-    if( href.indexOf('/sdk/task') > -1 && this.APP_CHANNEL.indexOf('100200') > -1 && localStorage.getItem('earnCoinDuration') ) {
+    if (href.indexOf('/sdk/task') > -1 && this.APP_CHANNEL.indexOf('100200') > -1 && localStorage.getItem('earnCoinDuration')) {
       this.send()
-    }else {
+    } else {
       clearTimeout(this.timer)
     }
   }
   async send () {
     /** 在游戏内计算时长 **/
     let checkAppIsShowInFront = await AppCall.checkAppIsShowInFront()
-    if(checkAppIsShowInFront == 'true') {
+    if (checkAppIsShowInFront == 'true') {
       let H5_SIGN = localStorage.getItem('H5_SIGN')
       let gameId = this.getGameType() || localStorage.getItem('wj_gameType')
       let url = '//platform-api.beeplaying.com/point/api/task/duration'
       Axios.post(url, {
         "gameId": gameId,
         "sign": H5_SIGN
-      },{ headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
-        const {code, data, message} = res.data
-        if(code == 200 && data) {
+      }, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
+        const { code, data, message } = res.data
+        if (code == 200 && data) {
           localStorage.setItem('H5_SIGN', data)
         }
       })
-    }else {
+    } else {
       console.log('不在游戏内终止时长')
     }
     this.timer = setTimeout(() => {
