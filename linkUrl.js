@@ -343,7 +343,8 @@ class SdkFun extends SdkConfig {
   }
   /** 获取排行榜地址 **/
   getRankingUrl () {
-    return this.HOST + '/xmWap/#/profitlist?from=game'
+    let useLandscape = this.getUseLandscape() ? 'landscape' : 'portrait'
+    return this.HOST + '/xmWap/#/profitlist?from=game&screenType=' + useLandscape
   }
   /** 获取横屏地址 **/
   getUseLandscape () {
