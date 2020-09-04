@@ -344,7 +344,8 @@ class SdkFun extends SdkConfig {
   /** 获取排行榜地址 **/
   getRankingUrl () {
     let useLandscape = this.getUseLandscape() ? 'landscape' : 'portrait'
-    return this.HOST + '/xmWap/#/profitlist?from=game&screenType=' + useLandscape
+    let gametype = this.getGameType()
+    return `${this.HOST}/xmWap/#/profitlist?from=game&screentype=${useLandscape}${gametype ? '&gametype=' + gametype : ''}`
   }
   /** 获取横屏地址 **/
   getUseLandscape () {
