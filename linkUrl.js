@@ -344,19 +344,9 @@ class SdkFun extends SdkConfig {
   }
   /** 获取排行榜地址 **/
   getRankingUrl () {
-    return (
-      this.HOST +
-      '/jsWap/#/popGame?channel=' +
-      this.APP_CHANNEL +
-      '&token=' +
-      this.ACCESS_TOKEN
-    )
-    // var PLANT_VERSION = localStorage.getItem('PLANT_VERSION')
-    // if(PLANT_VERSION === 'xmWap') {
-    //   return this.HOST + '/xmWap/#/profitlist?from=game'
-    // }else {
-    //   return this.HOST + '/bdWap/#/profitlist/0?from=game'
-    // }
+    let useLandscape = this.getUseLandscape() ? 'landscape' : 'portrait'
+    let gametype = this.getGameType()
+    return `${this.HOST}/xmWap/#/profitlist?from=game&screentype=${useLandscape}${gametype ? '&gametype=' + gametype : ''}`
   }
   /** 获取横屏地址 **/
   getUseLandscape () {
