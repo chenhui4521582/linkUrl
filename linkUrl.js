@@ -849,7 +849,7 @@ class DDW_Share extends SdkConfig {
       try {
         setTimeout(() => {
           const invitationCode = copy.split('&')[1].replace('invitationCode=', '')
-          if (invitationCode) {
+          if (invitationCode && this.ACCESS_TOKEN) {
             let url = `//platform-api.beeplaying.com/box/api/fission/callback/${invitationCode}`
             Axios.post(url, '', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } })
             AppCall.clearClipboardContent()
