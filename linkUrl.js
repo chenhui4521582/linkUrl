@@ -872,7 +872,7 @@ class MinorsCheck extends SdkConfig {
   getUserIsAdult () {
     const getUserIsAdultUrl = '//platform-api.beeplaying.com/wap/api/plat/isAdult' // 判断用户是否成年
     Axios.post(getUserIsAdultUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(response => {
-      sessionStorage.setItem('cache_getUserIsAdult', response)
+      sessionStorage.setItem('cache_getUserIsAdult', JSON.stringify(response))
       if (response.data.code === 200 && !response.data.data) {
         window.CUOTimer = setTimeout(() => {
           this.checkUserOnline()
