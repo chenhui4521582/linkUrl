@@ -857,6 +857,19 @@ class MinorsCheck extends SdkConfig {
   }
   /** 清除粘贴板内容 **/
   async init () {
+    var cache = sessionStorage['cache_getUserIsAdult']
+    if (cache) {
+      let adultInfo = JSON.parse(cache)
+      if (adultInfo.data.code === 200 && !adultInfo.data.data) {
+        window.CUOTimer = setTimeout(() => {
+          this.checkUserOnline()
+        }, 300000)
+      }
+    } else {
+      this.getUserIsAdult()
+    }
+  }
+  getUserIsAdult () {
     const getUserIsAdultUrl = '//platform-api.beeplaying.com/wap/api/plat/isAdult' // 判断用户是否成年
     Axios.post(getUserIsAdultUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(response => {
       if (response.data.code === 200 && !response.data.data) {
@@ -872,10 +885,10 @@ class MinorsCheck extends SdkConfig {
     const checkUserOnlineTimeUrl = '//platform-api.beeplaying.com/wap/api/plat/checkUserOnlineTime/5' // 判断未成年用户是否超时or累计时长
     Axios.post(checkUserOnlineTimeUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
       if (res.data.code === 200 && res.data.data) {
-        let url = window.linkUrl.getBackUrl()
-        let flag = window.linkUrl.getBackUrlFlag()
+        const url = window.linkUrl.getBackUrl()
+        const flag = window.linkUrl.getBackUrlFlag()
         if (!parent.location.href.includes(flag) && !location.href.includes(flag)) {
-          parent ? (parent.location.href = window.linkUrl.getBackUrl()) : (location.href = window.linkUrl.getBackUrl())
+          parent ? (parent.location.href = url) : (location.href = url)
         }
         return
       }
