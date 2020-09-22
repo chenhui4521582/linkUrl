@@ -857,17 +857,23 @@ class MinorsCheck extends SdkConfig {
   }
   /** 清除粘贴板内容 **/
   async init () {
-    var cache = sessionStorage['cache_getUserIsAdult']
-    if (cache) {
-      let adultInfo = JSON.parse(cache)
-      if (adultInfo.data.code === 200 && !adultInfo.data.data) {
-        window.CUOTimer = setTimeout(() => {
-          this.checkUserOnline()
-        }, 300000)
+    clearTimeout(window.CUOTimer)
+    window.CUOTimer = null
+    window.CUOTimer = setTimeout(() => {
+      var cache = sessionStorage['cache_getUserIsAdult']
+      clearTimeout(window.CUOTimer)
+      window.CUOTimer = null
+      if (cache) {
+        let adultInfo = JSON.parse(cache)
+        if (adultInfo.data.code === 200 && !adultInfo.data.data) {
+          window.CUOTimer = setTimeout(() => {
+            this.checkUserOnline()
+          }, 300000)
+        }
+      } else {
+        this.getUserIsAdult()
       }
-    } else {
-      this.getUserIsAdult()
-    }
+    }, 1000)
   }
   getUserIsAdult () {
     const getUserIsAdultUrl = '//platform-api.beeplaying.com/wap/api/plat/isAdult' // 判断用户是否成年
