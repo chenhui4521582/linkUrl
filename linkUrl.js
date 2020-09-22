@@ -849,6 +849,42 @@ class DDW_Share extends SdkConfig {
     }
   }
 }
+/** 未成年人检测 **/
+class MinorsCheck extends SdkConfig {
+  constructor() {
+    super()
+    this.init()
+  }
+  /** 清除粘贴板内容 **/
+  async init () {
+    const getUserIsAdultUrl = '//platform-api.beeplaying.com/wap/api/plat/isAdult' // 判断用户是否成年
+    Axios.post(getUserIsAdultUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(response => {
+      if (response.data.code === 200 && !response.data.data) {
+        window.CUOTimer = setTimeout(() => {
+          this.checkUserOnline()
+        }, 2000)
+      }
+    })
+  }
+  checkUserOnline () {
+    clearTimeout(window.CUOTimer)
+    window.CUOTimer = null
+    const checkUserOnlineTimeUrl = '//platform-api.beeplaying.com/wap/api/plat/checkUserOnlineTime/5' // 判断未成年用户是否超时or累计时长
+    Axios.post(checkUserOnlineTimeUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
+      if (res.data.code === 200 && res.data.data) {
+        let url = window.linkUrl.getBackUrl()
+        let flag = window.linkUrl.getBackUrlFlag()
+        if (!parent.location.href.includes(flag) && !location.href.includes(flag)) {
+          parent ? (parent.location.href = window.linkUrl.getBackUrl()) : (location.href = window.linkUrl.getBackUrl())
+        }
+        return
+      }
+      window.CUOTimer = setTimeout(() => {
+        this.checkUserOnline()
+      }, 2000)
+    })
+  }
+}
 
 /** 实例化SDK **/
 window.SDK = new SdkFun()
@@ -861,3 +897,5 @@ new RetunBack()
 
 /** 实例化分享出来下载多多完APP后获取粘贴板内容 **/
 new DDW_Share()
+/** 实例化未成年人检测 **/
+new MinorsCheck()
