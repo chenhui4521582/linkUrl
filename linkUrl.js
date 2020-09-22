@@ -862,7 +862,7 @@ class MinorsCheck extends SdkConfig {
       if (response.data.code === 200 && !response.data.data) {
         window.CUOTimer = setTimeout(() => {
           this.checkUserOnline()
-        }, 2000)
+        }, 300000)
       }
     })
   }
@@ -881,7 +881,7 @@ class MinorsCheck extends SdkConfig {
       }
       window.CUOTimer = setTimeout(() => {
         this.checkUserOnline()
-      }, 2000)
+      }, 300000)
     })
   }
 }
