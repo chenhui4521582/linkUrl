@@ -7,6 +7,7 @@ class ReturnBack extends SdkConfig {
     super()
     this.returnBackInfo = {}
     this.adList = {}
+    this.popType = 'basic'
     this.init()
   }
 
@@ -19,13 +20,25 @@ class ReturnBack extends SdkConfig {
     Axios.post(url, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(response => {
       if (response.data.code === 200) {
         this.returnBackInfo = response.data.data
-        if (response.data.data.popupType === 0) {
-          Axios.get('http://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(res => {
-            if (res.data.code === 200) {
-              this.adList = res.data.data[0] || {}
-            }
-          })
+        if (this.returnBackInfo.showTask) {
+          this.popType = 'newuser'
+          this.createPopup()
+          return
         }
+        if (this.returnBackInfo.popupType === 1) {
+          this.popType = 'entrance'
+          this.createPopup()
+          return
+        }
+        Axios.get('http://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(res => {
+          if (res.data.code === 200) {
+            this.adList = res.data.data[0] || {}
+            if (this.adList.id) {
+              this.popType = 'poster'
+            }
+          }
+          this.createPopup()
+        })
       }
     })
   }
@@ -39,9 +52,8 @@ class ReturnBack extends SdkConfig {
       let popup = document.createElement('div')
       popup.className = 'linkurl-backPopup'
       let gameListHtml = ''
-      let popType = this.returnBackInfo.popupType
       this.returnBackInfo.gameList.forEach((element, index) => {
-        if ((popType === 1 || this.returnBackInfo.showTask || this.adList.id) && index > 2) {
+        if ((this.returnBackInfo.showTask || this.returnBackInfo.popupType === 1 || this.adList.id) && index > 2) {
           return
         }
         gameListHtml += `<div class="item"><img src="${imgBaseUrl + element.img}"><p>${element.name}</p></div>`
@@ -58,34 +70,28 @@ class ReturnBack extends SdkConfig {
             <div class="item"><img src="${gameEntry}"><p>第二步</p><p>点击“游戏大厅”</p></div>
           </div>
         </div>`
-      let btnsHtml = this.adList.id ? `
-      <div class="btns has-ad">
-        <div class="item more">玩更多游戏</div>
-        <div class="item cancel">忍痛退出</div>
-      </div>`: `
-      <div class="btns">
-        <div class="item cancel">忍痛退出</div>
-        <div class="item more">玩更多游戏</div>
-      </div>
-      `
       let adHtml = `
       <div class="ad-wrapper">
         <img src="${imgBaseUrl + this.adList.image}"/>
       </div>`
       let html = `
         <div class="mask"></div>
-        <div class="popup-wrap popup-${popType}">
-        ${this.returnBackInfo.showTask ? taskHtml : ''}
+        <div class="popup-wrap popup-${this.popType === 'entrance' ? 1 : 0}">
+        ${this.popType === 'newuser' ? taskHtml : ''}
           <div class="title">猜你喜欢</div>
           <div class="gameList">
           ${gameListHtml}
           </div>
-          ${popType ? nextHtml : ''}
-          ${this.returnBackInfo.showTask ? '' : btnsHtml}
-          ${this.adList.id ? adHtml : ''}
+          ${this.popType === 'entrance' ? nextHtml : ''}
+          <div class="btns ${['poster', 'newuser'].includes(this.popType) ? 'not-flex' : ''}">
+            ${['poster'].includes(this.popType) ? '<div class="item more">玩更多游戏</div>' : ''}
+            <div class="item cancel">忍痛退出</div>
+            ${!['poster', 'newuser'].includes(this.popType) ? '<div class="item more">玩更多游戏</div>' : ''}
+          </div>
+          ${this.popType === 'poster' ? adHtml : ''}
           <div class="close"></div>
-        </div>
-      `
+        </div >
+        `
       popup.innerHTML = html
       if (document.querySelector('.linkurl-backPopup')) {
         return false
@@ -93,6 +99,11 @@ class ReturnBack extends SdkConfig {
       document.body.appendChild(popup)
       this.setFontsize()
       this.bindClick()
+      this.marchSetsPoint('P_H5PT0342', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+        source_address: this.getUrlParams('from')
+      })// H5平台-挽留弹窗(20年9月)-加载完成
     } catch (e) {
     }
   }
@@ -119,36 +130,52 @@ class ReturnBack extends SdkConfig {
     let adClick = document.querySelectorAll('.linkurl-backPopup .ad-wrapper')
     closeClick.onclick = () => {
       this.removePopup()
-      this.marchSetsPoint('A_H5PT0019003651', {
-        target_project_id: this.getGameType()
-      })
+      this.marchSetsPoint('A_H5PT0342004279', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+      })// H5平台-挽留弹窗(20年9月)-关闭点击
     }
     moreClick.onclick = () => {
       this.removePopup()
       this.gotoIndex()
-      this.marchSetsPoint('A_H5PT0019003650', {
-        target_project_id: this.getGameType()
-      })
+      this.marchSetsPoint('A_H5PT0342004277', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+      })// H5平台-挽留弹窗(20年9月)-更多游戏点击
     }
     cancelClick.onclick = () => {
       this.removePopup()
       this.closeWebView()
-      this.marchSetsPoint('A_H5PT0019003649', {
-        target_project_id: this.getGameType()
-      })
+      this.marchSetsPoint('A_H5PT0342004276', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+      })// H5平台-挽留弹窗(20年9月)-忍痛退出点击
     }
     for (let i in games) {
       gamesClick[i].onclick = () => {
         this.removePopup()
+        this.marchSetsPoint('A_H5PT0342004275', {
+          project_id: this.getGameType(),
+          window_type: this.popType,
+          target_project_name: this.returnBackInfo.gameList[i].name
+        })// H5平台-挽留弹窗(20年9月)-游戏位点击
         window.location.href = `//wap.beeplaying.com${this.returnBackInfo.gameList[i].url}?channel=${this.APP_CHANNEL}&time=${new Date().getTime()}`
       }
     }
     taskClick.onclick = () => {
       this.removePopup()
+      this.marchSetsPoint('A_H5PT0342004274', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+      })// H5平台-挽留弹窗(20年9月)-去拿新人奖励点击
       window.location.href = `//wap.beeplaying.com/xmWap/#${this.returnBackInfo.taskUrl}`
     }
     adClick.onclick = () => {
       this.removePopup()
+      this.marchSetsPoint('A_H5PT0342004278', {
+        project_id: this.getGameType(),
+        window_type: this.popType,
+      })// H5平台-挽留弹窗(20年9月)-运营位点击
       window.location.href = this.adList.url
     }
   }
@@ -190,9 +217,6 @@ class ReturnBack extends SdkConfig {
     /** window对象挂载百度好看回调方法 **/
     window.backHandler = () => {
       this.createPopup()
-      this.marchSetsPoint('A_H5PT0019003648', {
-        target_project_id: this.getGameType()
-      })
       let endTime = new Date(new Date().toLocaleDateString()).getTime()
       localStorage.setItem('linkurl-backPopup', `${endTime}`)
     }

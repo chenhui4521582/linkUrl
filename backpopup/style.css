@@ -131,11 +131,11 @@
   color: #ff0505;
 }
 
-.linkurl-backPopup .popup-wrap .btns.has-ad {
+.linkurl-backPopup .popup-wrap .btns.not-flex {
   width: 100%;
   display: block;
 }
-.linkurl-backPopup .popup-wrap .btns.has-ad .item.more {
+.linkurl-backPopup .popup-wrap .btns.not-flex .item.more {
   width: 100%;
   height: 2.6em;
   line-height: 2.68em;
@@ -143,7 +143,7 @@
   border-radius: 0.8em;
   color: #fff;
 }
-.linkurl-backPopup .popup-wrap .btns.has-ad .item.cancel {
+.linkurl-backPopup .popup-wrap .btns.not-flex .item.cancel {
   width: 100%;
   height: 2em;
   font-size: 0.8em;
@@ -152,13 +152,14 @@
   text-decoration: underline;
   color: #5286ca;
   line-height: 2em;
+  margin-bottom: 0.8em;
 }
 
 .linkurl-backPopup .popup-wrap .ad-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1em;
+  margin-top: 0;
   margin-bottom: 0.8em;
 }
 .linkurl-backPopup .popup-wrap .ad-wrapper img {
