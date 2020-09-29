@@ -43,11 +43,11 @@
   align-items: center;
   justify-content: center;
   margin-top: 0.8em;
-  height: 8em;
+  height: 9.6em;
 }
 .linkurl-backPopup .popup-wrap .task-wrapper img {
-  max-width: 14em;
-  max-height: 8em;
+  width: 14.3em;
+  height: 9.6em;
   border-radius: 0.8rem;
 }
 .linkurl-backPopup .popup-wrap .title {
