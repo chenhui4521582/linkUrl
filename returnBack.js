@@ -22,22 +22,19 @@ class ReturnBack extends SdkConfig {
         this.returnBackInfo = response.data.data
         if (this.returnBackInfo.showTask) {
           this.popType = 'newuser'
-          this.createPopup()
           return
         }
         if (this.returnBackInfo.popupType === 1) {
           this.popType = 'entrance'
-          this.createPopup()
           return
         }
-        Axios.get('http://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(res => {
+        Axios.get('https://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(res => {
           if (res.data.code === 200) {
             this.adList = res.data.data[0] || {}
             if (this.adList.id) {
               this.popType = 'poster'
             }
           }
-          this.createPopup()
         })
       }
     })
