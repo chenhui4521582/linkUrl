@@ -39,16 +39,19 @@
   background-size: 100% 100%;
 }
 .linkurl-backPopup .popup-wrap .task-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.8em;
+  position: relative;
   height: 9.6em;
+  width: 100%;
 }
 .linkurl-backPopup .popup-wrap .task-wrapper img {
+  position: absolute;
   width: 14.3em;
   height: 9.6em;
   border-radius: 0.8rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -7.15em;
+  margin-top: -4.2em;
 }
 .linkurl-backPopup .popup-wrap .title {
   padding: 1.2em 0 0.1em;
