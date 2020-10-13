@@ -890,8 +890,7 @@ class MinorsCheck extends SdkConfig {
   checkUserOnline () {
     clearTimeout(window.CUOTimer)
     window.CUOTimer = null
-    // 上线记得把45改成5！！！！！！！！！！！！！！！！！
-    const checkUserOnlineTimeUrl = '//platform-api.beeplaying.com/wap/api/plat/checkUserOnlineTime/45' // 判断未成年用户是否超时or累计时长
+    const checkUserOnlineTimeUrl = '//platform-api.beeplaying.com/wap/api/plat/checkUserOnlineTime/5' // 判断未成年用户是否超时or累计时长
     Axios.post(checkUserOnlineTimeUrl, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL } }).then(res => {
       if (res.data.code === 200 && res.data.data) {
         const url = window.linkUrl.getBackUrl()
