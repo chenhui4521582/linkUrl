@@ -855,8 +855,9 @@ class MinorsCheck extends SdkConfig {
     super()
     this.init()
   }
-  /** 清除粘贴板内容 **/
+  /** 初始化定时器 **/
   async init () {
+    if (parent.CUOTimer) return
     clearTimeout(window.CUOTimer)
     window.CUOTimer = null
     window.CUOTimer = setTimeout(() => {
