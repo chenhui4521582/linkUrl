@@ -17,7 +17,7 @@
   top: 0;
   bottom: 0;
   z-index: 1;
-  background: rgba(0,0,0,.7);
+  background: rgba(0, 0, 0, 0.7);
 }
 .linkurl-backPopup .popup-wrap {
   box-sizing: border-box;
@@ -26,27 +26,50 @@
   top: 50%;
   padding: 0 1.56em;
   width: 15.63em;
-  height: 20.53em;
   z-index: 2;
   transform: translate(-50%, -50%);
+}
+.linkurl-backPopup .popup-wrap.popup-0 {
+  background: #fff;
+  border-radius: 1em;
+}
+.linkurl-backPopup .popup-wrap.popup-1 {
+  height: 20.53em;
   background: url(./bg.png) no-repeat center top;
   background-size: 100% 100%;
 }
+.linkurl-backPopup .popup-wrap .task-wrapper {
+  position: relative;
+  height: 9.6em;
+  width: 100%;
+}
+.linkurl-backPopup .popup-wrap .task-wrapper img {
+  position: absolute;
+  width: 14.3em;
+  height: 9.6em;
+  border-radius: 0.8rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -7.15em;
+  margin-top: -4.2em;
+}
 .linkurl-backPopup .popup-wrap .title {
-  padding: 1.2em 0 1.1em;
+  padding: 1.2em 0 0.1em;
   text-align: center;
-  font-size: .93em;
+  font-size: 0.93em;
   color: #000;
 }
 .linkurl-backPopup .popup-wrap .gameList {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .linkurl-backPopup .popup-wrap .gameList .item {
   text-align: center;
+  margin: 1em 0;
 }
 .linkurl-backPopup .popup-wrap .gameList .item img {
-  margin-bottom: .7em;
+  margin-bottom: 0.7em;
   vertical-align: top;
   width: 2.666em;
   height: 2.666em;
@@ -54,15 +77,15 @@
 .linkurl-backPopup .popup-wrap .gameList .item p {
   vertical-align: top;
   white-space: nowrap;
-  font-size: .666em;
+  font-size: 0.666em;
   color: #888888;
   text-align: center;
 }
 
 .linkurl-backPopup .popup-wrap .next .title {
-  padding: 2.43em 0 .9em;
+  padding: 1.43em 0 0.9em;
   text-align: center;
-  font-size: .66em;
+  font-size: 0.66em;
   color: #999999;
 }
 
@@ -81,18 +104,19 @@
   height: 3.1em;
 }
 .linkurl-backPopup .popup-wrap .next .next-wrap .item p {
-  font-size: .667em;
+  font-size: 0.667em;
   text-align: left;
 }
 
 .linkurl-backPopup .popup-wrap .btns {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
   width: 100%;
   display: flex;
   justify-content: flex-start;
+}
+.linkurl-backPopup .popup-wrap.popup-1 .btns {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .linkurl-backPopup .popup-wrap .btns .item {
@@ -100,14 +124,49 @@
   height: 3.8em;
   line-height: 3.8em;
   text-align: center;
-  font-size: .8em;
-  font-weight:400;
+  font-size: 0.8em;
+  font-weight: 400;
 }
-.linkurl-backPopup .popup-wrap .btns .item:first-child {
+.linkurl-backPopup .popup-wrap .btns .cancel {
   color: #333333;
 }
-.linkurl-backPopup .popup-wrap .btns .item:last-child {
-  color: #FF0505;
+.linkurl-backPopup .popup-wrap .btns .more {
+  color: #ff0505;
+}
+
+.linkurl-backPopup .popup-wrap .btns.not-flex {
+  width: 100%;
+  display: block;
+}
+.linkurl-backPopup .popup-wrap .btns.not-flex .item.more {
+  width: 100%;
+  height: 2.6em;
+  line-height: 2.68em;
+  background: #ff4242;
+  border-radius: 0.8em;
+  color: #fff;
+}
+.linkurl-backPopup .popup-wrap .btns.not-flex .item.cancel {
+  width: 100%;
+  height: 2em;
+  font-size: 0.8em;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  text-decoration: underline;
+  color: #5286ca;
+  line-height: 2em;
+  margin-bottom: 0.8em;
+}
+
+.linkurl-backPopup .popup-wrap .ad-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 0.8em;
+}
+.linkurl-backPopup .popup-wrap .ad-wrapper img {
+  width: 14em;
 }
 .linkurl-backPopup .popup-wrap .close {
   position: absolute;
@@ -119,4 +178,3 @@
   background: url(./close.png) no-repeat center top;
   background-size: 100% 100%;
 }
-
