@@ -17,39 +17,26 @@ class ReturnBack extends SdkConfig {
   getReturnBackInfo () {
     let from = this.getUrlParams('from')
     let url = `https://platform-api.beeplaying.com/wap/api/quit/retain${from ? '/' + from : ''}`
-    Axios.post(url, null, {
-      headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' },
-      timeout: 500
-    }).then(response => {
+    Axios.post(url, null, { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(response => {
       if (response.data.code === 200) {
         this.returnBackInfo = response.data.data
         if (this.returnBackInfo.showTask) {
           this.popType = 'newuser'
-          this.createPopup()
           return
         }
         if (this.returnBackInfo.popupType === 1) {
           this.popType = 'entrance'
-          this.createPopup()
           return
         }
-        Axios.get('https://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', {
-          headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' },
-          timeout: 500
-        }).then(res => {
+        Axios.get('https://platform-api.beeplaying.com/wap/api/fixed/ad/get-list/37', { headers: { 'Authorization': this.ACCESS_TOKEN, 'App-Channel': this.APP_CHANNEL, 'App-Version': '1.0.0' } }).then(res => {
           if (res.data.code === 200) {
             this.adList = res.data.data[0] || {}
             if (this.adList.id) {
               this.popType = 'poster'
             }
-            this.createPopup()
           }
-        }).catch(error => {
-          this.closeWebView()
         })
       }
-    }).catch(error => {
-      this.closeWebView()
     })
   }
   /** 创建挽留弹框 **/
@@ -206,6 +193,7 @@ class ReturnBack extends SdkConfig {
   }
   /** 创建(百度好看/全民小视频)退出回调钩子 **/
   init () {
+    this.getReturnBackInfo()
     let bdminObj = 'backHandler'
     let scheme = 'baiduhaokan://action/backHandler/?goback_callback=' + encodeURIComponent(bdminObj)
     if (this.APP_CHANNEL === '100042') {
@@ -223,7 +211,7 @@ class ReturnBack extends SdkConfig {
     }, 1000)
     /** window对象挂载百度好看回调方法 **/
     window.backHandler = () => {
-      this.getReturnBackInfo()
+      this.createPopup()
       let endTime = new Date(new Date().toLocaleDateString()).getTime()
       localStorage.setItem('linkurl-backPopup', `${endTime}`)
     }
