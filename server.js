@@ -12,15 +12,15 @@ function catIsClose (date) {
 
 //********************全平台停服配置开始**********************
 //开关
-const IS_OPEN = false
+const IS_OPEN = true
 //日期
 // const DATE = '2017-7-3';
 //时间
 const TIME = {
-  startDate: '2019年1月8日',
-  start: '4:00',
-  finishDate: '2019年1月9日',
-  finish: '22:00'
+  startDate: '2020年11月5日',
+  start: '02:00',
+  finishDate: '2020年11月5日',
+  finish: '05:00'
 }
 //********************全平台停服配置结束**********************
 
