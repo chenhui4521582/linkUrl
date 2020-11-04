@@ -17,9 +17,9 @@ const IS_OPEN = true
 // const DATE = '2017-7-3';
 //时间
 const TIME = {
-  startDate: '2020年11月5日',
+  startDate: '2020年11月6日',
   start: '02:00',
-  finishDate: '2020年11月5日',
+  finishDate: '2020年11月6日',
   finish: '05:00'
 }
 //********************全平台停服配置结束**********************
