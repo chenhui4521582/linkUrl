@@ -40,6 +40,7 @@ class SdkConfig {
       xiyou: 29,
       boom: 30,
       wing: 31,
+      spirit: 32,
       ttfjdz: 105,
       hitmouse: 106,
       default: 0
