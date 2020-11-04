@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>系统升级中</title>
+    <style>
+        html{font-size:13.333vw}
+        body{
+          background:#F7F7F7;
+        }
+        .bg_img
+        {
+          display:block;
+          margin: 4rem auto 0 auto;
+          width:3.5rem;
+        }
+        #text
+        {
+          margin-top:0.3rem;
+          font-size:0.36rem;
+          line-height:0.5rem;
+          font-weight:bold;
+          text-align:center;
+        }
+
+        #summary{
+          width:4.82rem;
+          margin:0.32rem auto 0 auto;
+          color:#888;
+          font-size:0.24rem;
+          line-height:0.35rem;
+          text-align:center;
+        }
+    </style>
+  </head>
+  <body>
+    <img class="bg_img" src='./imgs/bg.png' />
+    <div id="text"></div>
+    <div id="summary"></div>
+    <script type="text/javascript">
+			var set_tf_time = getUrlParamObj('tf') && JSON.parse(decodeURIComponent(getUrlParamObj('tf')));
+			var tf_text = '';
+      var tf_summary='';
+			if(set_tf_time.startDate){
+        tf_text = set_tf_time.start+" ~ "+set_tf_time.finish;
+        tf_text+= "\n系统升级中 很快恢复哦";
+        tf_summary='为了提升您的游戏体验 我们正在为您升级系统，预计'+set_tf_time.finish+'可恢复访问';
+			}
+			
+			
+			document.getElementById('text').innerText = tf_text;
+			document.getElementById('summary').innerText = tf_summary;
+			
+			function getUrlParamObj(ename) {
+		        var url = window.location.href;
+		        var Request = new Object();
+		        if (url.indexOf("?") != -1) {
+		            var str = url.split('?')[1];
+		            var strs = str.split("&");
+		            for (var i = 0; i < strs.length; i++) {
+		                Request[strs[i].split("=")[0]] = strs[i].split("=")[1];
+		                if(strs[i].split("=").length > 2){
+		                    Request[strs[i].split("=")[0]] = strs[i].split("=")[1] + '==';
+		                }
+		            }
+		        }
+		
+		        return ename ? (Request[ename] ? Request[ename].split('#')[0] : '') : Request;
+		    }
+		</script>
+  </body>
+</html>
