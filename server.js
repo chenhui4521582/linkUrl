@@ -12,7 +12,7 @@ function catIsClose (date) {
 
 //********************全平台停服配置开始**********************
 //开关
-const IS_OPEN = true
+const IS_OPEN = false
 //日期
 // const DATE = '2017-7-3';
 //时间
