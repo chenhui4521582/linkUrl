@@ -11,31 +11,24 @@ function catIsClose (date) {
 
 
 //********************全平台停服配置开始**********************
-//开关
+//开关  没测试过，下次跑时测下
 const IS_OPEN = false
 //日期
 // const DATE = '2017-7-3';
 //时间
 const TIME = {
-  startDate: '2020年11月6日',
-  start: '02:00',
-  finishDate: '2020年11月6日',
-  finish: '05:00'
+  start: '2020-11-09 02:00',
+  finish: '2020-11-09 12:00'
 }
 //********************全平台停服配置结束**********************
-
-
-
 
 //********************单个小游戏或者单个外界游戏停服配置开始***************
 //开关
 const IS_GAME_OPEN = false
 //日期
 const GAMETIME = {
-  startDate: '2019年1月8日',
-  start: '4:00',
-  finishDate: '2019年1月9日',
-  finish: '22:00'
+  start: '2020-11-09 4:00',
+  finish: '2020-11-09 22:00'
 }
 //需要停服的游戏  (例如  ) ==>  ['billiards','dart','sdk.zhijiangames.com/wanfeng/init/game/xxjqxz']
 const tfGames = []
@@ -138,30 +131,10 @@ if (['100029', '110002', '110004', '110003'].indexOf(curChannel) != -1) {
 localStorage.removeItem('originDeffer')
 
 function timeRange (beginTime, endTime) {
-  var strb = beginTime.split(":")
-  if (strb.length != 2) {
-    return false
-  }
-
-  var stre = endTime.split(":")
-  if (stre.length != 2) {
-    return false
-  }
-
-  var b = new Date()
-  var e = new Date()
-  var n = new Date()
-
-  b.setHours(strb[0])
-  b.setMinutes(strb[1])
-  e.setHours(stre[0])
-  e.setMinutes(stre[1])
-
-  if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
-    return true
-  } else {
-    return false
-  }
+  var now = Date.now();
+  var begin = new Date(beginTime).getTime();
+  var end = new Date(endTime).getTime();
+  return (begin > now && begin<end);
 }
 
 var _ss = window.location.href.split('#/')
