@@ -128,13 +128,13 @@ if (['100029', '110002', '110004', '110003'].indexOf(curChannel) != -1) {
   closeWeiXinShare()
 }
 
-localStorage.removeItem('originDeffer')
+// localStorage.removeItem('originDeffer')
 
 function timeRange (beginTime, endTime) {
-  var now = Date.now();
-  var begin = new Date(beginTime).getTime();
-  var end = new Date(endTime).getTime();
-  return (begin > now && begin<end);
+  var now = Date.now()
+  var begin = new Date(beginTime).getTime()
+  var end = new Date(endTime).getTime()
+  return (begin > now && begin < end)
 }
 
 var _ss = window.location.href.split('#/')
