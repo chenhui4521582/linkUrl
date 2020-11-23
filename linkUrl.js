@@ -364,6 +364,25 @@ class SdkFun extends SdkConfig {
   getPlatMyUrl () {
     return `${this.HOST}/xmWap/#/my/?channel=${this.APP_CHANNEL}&from=game`
   }
+  /** 获取平台 任务页 地址 **/
+  getPlatTaskUrl (isGameCLose=false) {
+    if(isGameCLose){
+      parent.parent.closeWebView&&parent.parent.closeWebView()
+    }else{
+      return `${this.HOST}/xmWap/#/task/?channel=${this.APP_CHANNEL}`
+    }
+  }
+  /** 平台内支付 **/
+  chargePlat(order){
+    if (!order) {
+      return false
+    }
+    localStorage.setItem('originDeffer', window.location.href)
+    localStorage.setItem('JDD_PARAM', JSON.stringify(order))
+    localStorage.setItem('payment', JSON.stringify(order))
+    location.href =
+      `${this.HOST}/xmWap/#/payment/paymentlist?isBack=true`
+  }
   /** 100061 渠道修改titile 图标**/
   editIcon () {
     if (this.APP_CHANNEL == 100061) {
